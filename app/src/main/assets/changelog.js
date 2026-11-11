@@ -1,29 +1,26 @@
 const CHANGELOG = [
-  { v: '1.4.0', b: 8, tarikh: '2026-11-11', nota: [
-    'Ikon Tetapan dan bar tab bertema kalkulator comel',
-    'Maskot dipaparkan dalam bahagian Tentang'
-  ]},
-  { v: '1.4.0', b: 7, tarikh: '2026-11-11', nota: [
-    'Tab Tetapan baharu dengan bahagian Tentang (About)',
-    'Nombor versi dan build dipindah ke Tentang',
-    'Kredit: dibuat oleh Asraf Ismail'
-  ]},
-  { v: '1.3.0', b: 6, tarikh: '2026-11-11', nota: [
-    'Bar status dan bar navigasi kini mengikut warna tema app'
-  ]},
-  { v: '1.3.0', b: 5, tarikh: '2026-11-11', nota: [
-    'Nama app ditukar kepada Kalkulator',
-    'Senarai unit dikemaskan',
-    'Unit Metrik, Imperial, Maritim & Angkasa kekal'
-  ]},
-  { v: '1.2.0', b: 4, tarikh: '2026-11-11', nota: [
-    'Jauh lebih banyak unit dalam setiap jenis pertukaran',
-    'Jenis baharu: Kelajuan, Data, Tekanan, Tenaga, Kuasa dan Sudut',
-    'Ikon app mengikut gambar maskot kalkulator'
-  ]},
-  { v: '1.0.0', b: 1, tarikh: '2026-11-11', nota: [
-    'Kalkulator pertama',
-    'Penukar unit 8 kategori',
-    'Info perubahan terkini dalam app'
-  ]}
+  { v: '1.5.0', b: 10, tarikh: '2026-11-11', nota: {
+    ms: ['Logo maskot diletakkan pada butang info perubahan di bahagian atas'],
+    en: ['Mascot logo placed on the latest-changes button at the top'] }},
+  { v: '1.5.0', b: 9, tarikh: '2026-11-11', nota: {
+    ms: ['Tetapan bahasa baharu: Bahasa Melayu dan English', 'Semua tulisan dalam app mengikut bahasa yang dipilih'],
+    en: ['New language setting: Bahasa Melayu and English', 'All text in the app follows the selected language'] }},
+  { v: '1.4.0', b: 8, tarikh: '2026-11-11', nota: {
+    ms: ['Ikon Tetapan dan bar tab bertema kalkulator comel', 'Maskot dipaparkan dalam bahagian Tentang'],
+    en: ['Settings and tab icons in the cute calculator theme', 'Mascot shown in the About section'] }},
+  { v: '1.4.0', b: 7, tarikh: '2026-11-11', nota: {
+    ms: ['Tab Tetapan baharu dengan bahagian Tentang', 'Nombor versi dan build dipindah ke Tentang', 'Kredit: dibuat oleh Asraf Ismail'],
+    en: ['New Settings tab with an About section', 'Version and build numbers moved to About', 'Credit: made by Asraf Ismail'] }},
+  { v: '1.3.0', b: 6, tarikh: '2026-11-11', nota: {
+    ms: ['Bar status dan bar navigasi kini mengikut warna tema app'],
+    en: ['Status bar and navigation bar now follow the app theme colour'] }},
+  { v: '1.3.0', b: 5, tarikh: '2026-11-11', nota: {
+    ms: ['Nama app ditukar kepada Kalkulator', 'Senarai unit dikemaskan', 'Unit Metrik, Imperial, Maritim & Angkasa kekal'],
+    en: ['App renamed to Kalkulator', 'Unit list tidied up', 'Metric, Imperial and Maritime & Space units kept'] }},
+  { v: '1.2.0', b: 4, tarikh: '2026-11-11', nota: {
+    ms: ['Jauh lebih banyak unit dalam setiap jenis pertukaran', 'Jenis baharu: Kelajuan, Data, Tekanan, Tenaga, Kuasa dan Sudut', 'Ikon app mengikut gambar maskot kalkulator'],
+    en: ['Many more units in every conversion type', 'New types: Speed, Data, Pressure, Energy, Power and Angle', 'App icon now uses the calculator mascot image'] }},
+  { v: '1.0.0', b: 1, tarikh: '2026-11-11', nota: {
+    ms: ['Kalkulator pertama', 'Penukar unit 8 kategori', 'Info perubahan terkini dalam app'],
+    en: ['First calculator', 'Unit converter with 8 categories', 'Latest changes info inside the app'] }}
 ];

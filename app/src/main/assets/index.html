@@ -6,8 +6,9 @@ body{margin:0;font-family:sans-serif;background:#f4f1ff;color:#1e1b4b;height:100
 header{padding:30px 18px 6px;display:flex;justify-content:space-between;align-items:center}
 h1{margin:0;font-size:30px;color:#7c5cff}
 small{color:#6b6b8a}
-#star{border:0;background:#fff;border-radius:50%;width:48px;height:48px;font-size:22px;box-shadow:0 2px 8px #0002;position:relative}
-#dot{position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;background:#ff6b8b}
+#star{border:0;padding:0;background:none;border-radius:18px;width:64px;height:64px;box-shadow:0 3px 10px #7c5cff44;position:relative}
+#star img{width:100%;height:100%;border-radius:18px;display:block}
+#dot{position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:#ff6b8b;border:2px solid #f4f1ff}
 main{flex:1;overflow:auto;padding:8px 14px}
 .page{display:none}.page.on{display:block}
 #disp{background:#e9e8ff;border-radius:22px;padding:14px 18px;text-align:right;min-height:104px}
@@ -30,12 +31,13 @@ nav button{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;
 nav button.on{background:#e6e3ff;color:#7c5cff;font-weight:700}
 .ab{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eee;font-size:16px}
 nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
+.cat.sel{background:#e6e3ff!important;outline:3px solid #7c5cff}
 #modal{display:none;position:fixed;inset:0;background:#0006;align-items:center;justify-content:center;padding:20px}
 #modal .box{max-height:80vh;overflow:auto;width:100%;margin:0}
 </style></head><body>
 <header>
-  <div><h1>Kalkulator ⭐</h1><small>Kira apa sahaja, lebih mudah!</small></div>
-  <button id="star" onclick="openLog()">✨<i id="dot"></i></button>
+  <div><h1><span data-i="title"></span> ⭐</h1><small data-i="tagline"></small></div>
+  <button id="star" onclick="openLog()"><img src="logo.png" alt=""><i id="dot"></i></button>
 </header>
 <main>
   <section class="page on">
@@ -47,33 +49,44 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
       <div class="row"><input id="v1" type="number" value="100" oninput="conv()"><select id="u1" onchange="conv()"></select></div>
       <div class="row"><input id="v2" readonly><select id="u2" onchange="conv()"></select></div>
     </div>
-    <p style="margin:14px 4px 8px"><small>Pilih jenis pertukaran:</small></p>
+    <p style="margin:14px 4px 8px"><small data-i="pick"></small></p>
     <div class="cats" id="cats"></div>
   </section>
   <section class="page">
     <div class="box" style="margin-top:0;text-align:center">
       <img src="mascot.png" width="104" height="104" style="border-radius:26px" alt="">
-      <h2 style="margin:4px 0;color:#7c5cff">Kalkulator</h2>
-      <small>Kira apa sahaja, lebih mudah!</small>
+      <h2 style="margin:4px 0;color:#7c5cff" data-i="title"></h2>
+      <small data-i="tagline"></small>
     </div>
-    <div class="box"><b>Tentang (About)</b>
-      <div class="ab"><span>Versi</span><b id="vn"></b></div>
-      <div class="ab"><span>Build</span><b id="vc"></b></div>
-      <div class="ab"><span>Dibuat oleh</span><b>Asraf Ismail</b></div>
-      <button class="cat" style="background:#e6e3ff;width:100%;margin-top:12px" onclick="openLog()">✨ Info perubahan terkini</button>
+    <div class="box"><b data-i="lang"></b>
+      <div class="row">
+        <button class="cat" data-l="ms" style="flex:1;background:#fffbea" onclick="setLang('ms')">🇲🇾 Bahasa Melayu</button>
+        <button class="cat" data-l="en" style="flex:1;background:#fffbea" onclick="setLang('en')">🇬🇧 English</button>
+      </div>
+    </div>
+    <div class="box"><b data-i="about"></b>
+      <div class="ab"><span data-i="version"></span><b id="vn"></b></div>
+      <div class="ab"><span data-i="build"></span><b id="vc"></b></div>
+      <div class="ab"><span data-i="by"></span><b>Asraf Ismail</b></div>
+      <button class="cat" style="background:#e6e3ff;width:100%;margin-top:12px" data-i="changes" onclick="openLog()"></button>
     </div>
   </section>
 </main>
-<nav><button class="on" onclick="tab(0)"><svg viewBox="0 0 32 32" width="28" height="28"><rect x="6" y="3" width="20" height="26" rx="5.5" fill="#b9a6ff" stroke="#7c5cff" stroke-width="2"/><rect x="9.5" y="6.5" width="13" height="5" rx="2" fill="#fff"/><g fill="#fff"><rect x="9.5" y="14.5" width="4" height="3.4" rx="1.3"/><rect x="14" y="14.5" width="4" height="3.4" rx="1.3"/><rect x="18.5" y="14.5" width="4" height="3.4" rx="1.3"/><rect x="9.5" y="19.5" width="4" height="3.4" rx="1.3"/><rect x="14" y="19.5" width="4" height="3.4" rx="1.3"/><rect x="18.5" y="19.5" width="4" height="3.4" rx="1.3"/><rect x="9.5" y="24" width="4" height="3.4" rx="1.3"/><rect x="14" y="24" width="4" height="3.4" rx="1.3"/></g><rect x="18.5" y="24" width="4" height="3.4" rx="1.3" fill="#5fd9a8"/></svg><span>Kira</span></button><button onclick="tab(1)"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h19M19.5 5.5L25 11l-5.5 5.5" stroke="#7c5cff"/><path d="M26 22H7M12.5 16.5L7 22l5.5 5.5" stroke="#3fc99a"/></svg><span>Penukar</span></button><button onclick="tab(2)"><svg viewBox="0 0 34 32" width="30" height="28"><g fill="#b9a6ff" stroke="#7c5cff" stroke-width="2" stroke-linejoin="round" transform="translate(0 0)"><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(0 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(45 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(90 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(135 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(180 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(225 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(270 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(315 16 16)"/><circle cx="16" cy="16" r="9.5"/></g><circle cx="12.6" cy="14.6" r="1.4" fill="#3b1f7a"/><circle cx="19.4" cy="14.6" r="1.4" fill="#3b1f7a"/><path d="M13.6 18.2q2.4 2.4 4.8 0" fill="none" stroke="#3b1f7a" stroke-width="1.4" stroke-linecap="round"/><circle cx="10.2" cy="17.6" r="1.6" fill="#ff9db8" opacity=".8"/><circle cx="21.8" cy="17.6" r="1.6" fill="#ff9db8" opacity=".8"/><path d="M27 2.5l1.3 3.2 3.2 1.3-3.2 1.3-1.3 3.2-1.3-3.2-3.2-1.3 3.2-1.3z" fill="#ffcf40" stroke="#f0a500" stroke-width=".8" stroke-linejoin="round"/></svg><span>Tetapan</span></button></nav>
+<nav><button class="on" onclick="tab(0)"><svg viewBox="0 0 32 32" width="28" height="28"><rect x="6" y="3" width="20" height="26" rx="5.5" fill="#b9a6ff" stroke="#7c5cff" stroke-width="2"/><rect x="9.5" y="6.5" width="13" height="5" rx="2" fill="#fff"/><g fill="#fff"><rect x="9.5" y="14.5" width="4" height="3.4" rx="1.3"/><rect x="14" y="14.5" width="4" height="3.4" rx="1.3"/><rect x="18.5" y="14.5" width="4" height="3.4" rx="1.3"/><rect x="9.5" y="19.5" width="4" height="3.4" rx="1.3"/><rect x="14" y="19.5" width="4" height="3.4" rx="1.3"/><rect x="18.5" y="19.5" width="4" height="3.4" rx="1.3"/><rect x="9.5" y="24" width="4" height="3.4" rx="1.3"/><rect x="14" y="24" width="4" height="3.4" rx="1.3"/></g><rect x="18.5" y="24" width="4" height="3.4" rx="1.3" fill="#5fd9a8"/></svg><span data-i="navCalc"></span></button><button onclick="tab(1)"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h19M19.5 5.5L25 11l-5.5 5.5" stroke="#7c5cff"/><path d="M26 22H7M12.5 16.5L7 22l5.5 5.5" stroke="#3fc99a"/></svg><span data-i="navConv"></span></button><button onclick="tab(2)"><svg viewBox="0 0 34 32" width="30" height="28"><g fill="#b9a6ff" stroke="#7c5cff" stroke-width="2" stroke-linejoin="round" transform="translate(0 0)"><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(0 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(45 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(90 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(135 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(180 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(225 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(270 16 16)"/><rect x="13.5" y="2.5" width="5" height="6.5" rx="1.8" transform="rotate(315 16 16)"/><circle cx="16" cy="16" r="9.5"/></g><circle cx="12.6" cy="14.6" r="1.4" fill="#3b1f7a"/><circle cx="19.4" cy="14.6" r="1.4" fill="#3b1f7a"/><path d="M13.6 18.2q2.4 2.4 4.8 0" fill="none" stroke="#3b1f7a" stroke-width="1.4" stroke-linecap="round"/><circle cx="10.2" cy="17.6" r="1.6" fill="#ff9db8" opacity=".8"/><circle cx="21.8" cy="17.6" r="1.6" fill="#ff9db8" opacity=".8"/><path d="M27 2.5l1.3 3.2 3.2 1.3-3.2 1.3-1.3 3.2-1.3-3.2-3.2-1.3 3.2-1.3z" fill="#ffcf40" stroke="#f0a500" stroke-width=".8" stroke-linejoin="round"/></svg><span data-i="navSet"></span></button></nav>
 <div id="modal" onclick="if(event.target===this)this.style.display='none'">
-  <div class="box"><h2 style="margin-top:0">Info Perubahan Terkini ✨</h2><div id="log"></div>
-  <button class="cat" style="background:#e6e3ff;width:100%" onclick="$('#modal').style.display='none'">Tutup</button></div>
+  <div class="box"><h2 style="margin-top:0" data-i="changesTitle"></h2><div id="log"></div>
+  <button class="cat" style="background:#e6e3ff;width:100%" data-i="close" onclick="$('#modal').style.display='none'"></button></div>
 </div>
 <script src="changelog.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const [VN,VC]=(window.App?App.version():'dev|0').split('|');
 $('#vn').textContent=VN;$('#vc').textContent=VC;
+let LANG='ms';try{LANG=localStorage.getItem('lang')||'ms'}catch(_){}
+const T={
+ms:{title:'Kalkulator',tagline:'Kira apa sahaja, lebih mudah!',navCalc:'Kira',navConv:'Penukar',navSet:'Tetapan',pick:'Pilih jenis pertukaran:',err:'Ralat',about:'Tentang',version:'Versi',build:'Build',by:'Dibuat oleh',changes:'✨ Info perubahan terkini',changesTitle:'Info Perubahan Terkini ✨',close:'Tutup',lang:'Bahasa'},
+en:{title:'Calculator',tagline:'Calculate anything, made easier!',navCalc:'Calc',navConv:'Converter',navSet:'Settings',pick:'Choose a conversion type:',err:'Error',about:'About',version:'Version',build:'Build',by:'Made by',changes:'✨ Latest changes',changesTitle:'Latest Changes ✨',close:'Close',lang:'Language'}};
+const t=k=>T[LANG][k];
 
 /* ---- Kalkulator ---- */
 let ex='',done=false;
@@ -83,7 +96,8 @@ $('#pad').innerHTML=K.map(([l,k,c])=>`<button class="${c||''}" data-k="${k||l}">
 $('#pad').onclick=e=>{const b=e.target.closest('button');if(b)key(b.dataset.k)};
 const pretty=s=>s.replace(/\*/g,'×').replace(/\//g,'÷');
 const fmt=n=>Number(n.toFixed(8)).toLocaleString('en-US',{maximumFractionDigits:8});
-function show(r){$('#ex').textContent=pretty(ex);$('#res').textContent=r!==undefined?r:((ex.match(/[0-9.]+$/)||['0'])[0])}
+function err(){ex='';show(t('err'));$('#res').dataset.err='1'}
+function show(r){delete $('#res').dataset.err;$('#ex').textContent=pretty(ex);$('#res').textContent=r!==undefined?r:((ex.match(/[0-9.]+$/)||['0'])[0])}
 function key(k){
   const op=/[+\-*\/]$/;
   if(k==='C'){ex='';done=false;return show('0')}
@@ -92,9 +106,9 @@ function key(k){
     try{
       const e=ex.replace(/[+\-*\/.]+$/,'');
       const r=Function('return '+e)();
-      if(!isFinite(r)){ex='';return show('Ralat')}
+      if(!isFinite(r)){return err()}
       show(fmt(r));$('#ex').textContent=pretty(e)+' =';ex=String(r);done=true;
-    }catch(_){ex='';show('Ralat')}
+    }catch(_){err()}
     return;
   }
   if(/^[0-9]$/.test(k)){
@@ -120,57 +134,64 @@ function key(k){
 }
 
 /* ---- Penukar unit ---- */
-/* format unit: [nama, faktor ke unit asas, kumpulan] */
+/* unit: [nama Melayu, nama Inggeris (null = sama), faktor ke unit asas, kumpulan] */
+const G={metric:['Metrik','Metric'],imperial:['Imperial','Imperial'],maritime:['Maritim & Angkasa','Maritime & Space'],short:['Singkat','Short'],daily:['Harian','Daily'],long:['Panjang','Long'],base10:['Asas 10','Base 10'],base2:['Asas 2','Base 2'],temp:['Suhu','Temperature'],other:['Lain-lain','Other'],food:['Makanan & Haba','Food & Heat'],physics:['Fizik','Physics'],angle:['Sudut','Angle']};
 const LEN=[
-['Mikrometer (µm)',1e-6,'Metrik'],['Milimeter (mm)',.001,'Metrik'],['Sentimeter (cm)',.01,'Metrik'],['Desimeter (dm)',.1,'Metrik'],['Meter (m)',1,'Metrik'],['Kilometer (km)',1000,'Metrik'],
-['Thou / mil',2.54e-5,'Imperial'],['Inci',.0254,'Imperial'],['Kaki (feet)',.3048,'Imperial'],['Ela (yard)',.9144,'Imperial'],['Rantai (chain)',20.1168,'Imperial'],['Furlong',201.168,'Imperial'],['Batu (miles)',1609.344,'Imperial'],
-['Fathom (depa laut)',1.8288,'Maritim & Angkasa'],['Kabel (cable)',185.2,'Maritim & Angkasa'],['Batu Nautika (nautical mile)',1852,'Maritim & Angkasa'],['Unit Astronomi (AU)',1.495978707e11,'Maritim & Angkasa'],['Tahun Cahaya (light-year)',9.4607304725808e15,'Maritim & Angkasa'],['Parsec',3.0856775814913673e16,'Maritim & Angkasa']];
+['Mikrometer (µm)','Micrometer (µm)',1e-6,'metric'],['Milimeter (mm)','Millimeter (mm)',.001,'metric'],['Sentimeter (cm)','Centimeter (cm)',.01,'metric'],['Desimeter (dm)','Decimeter (dm)',.1,'metric'],['Meter (m)','Meter (m)',1,'metric'],['Kilometer (km)','Kilometer (km)',1000,'metric'],
+['Thou / mil',null,2.54e-5,'imperial'],['Inci','Inch (in)',.0254,'imperial'],['Kaki (feet)','Foot (ft)',.3048,'imperial'],['Ela (yard)','Yard (yd)',.9144,'imperial'],['Rantai (chain)','Chain',20.1168,'imperial'],['Furlong',null,201.168,'imperial'],['Batu (miles)','Mile (mi)',1609.344,'imperial'],
+['Fathom (depa laut)','Fathom',1.8288,'maritime'],['Kabel (cable)','Cable',185.2,'maritime'],['Batu Nautika (nautical mile)','Nautical mile (nmi)',1852,'maritime'],['Unit Astronomi (AU)','Astronomical unit (AU)',1.495978707e11,'maritime'],['Tahun Cahaya (light-year)','Light-year (ly)',9.4607304725808e15,'maritime'],['Parsec',null,3.0856775814913673e16,'maritime']];
 const C=[
-{n:'Tinggi',e:'📏',bg:'#ffe3ea',s:'cm ↔ m',u:LEN,d:[2,4]},
-{n:'Jarak',e:'📍',bg:'#dcecff',s:'m ↔ km',u:LEN,d:[4,5]},
-{n:'Berat',e:'⚖️',bg:'#e6e3ff',s:'g ↔ kg',d:[2,3],u:[
- ['Mikrogram (µg)',1e-9,'Metrik'],['Miligram (mg)',1e-6,'Metrik'],['Gram (g)',.001,'Metrik'],['Kilogram (kg)',1,'Metrik'],['Tan metrik',1000,'Metrik'],['Karat',2e-4,'Metrik'],
- ['Gren (grain)',6.479891e-5,'Imperial'],['Auns (oz)',.028349523,'Imperial'],['Paun (lb)',.45359237,'Imperial'],['Stone',6.35029318,'Imperial'],['Tan AS (short ton)',907.18474,'Imperial'],['Tan UK (long ton)',1016.0469088,'Imperial']]},
-{n:'Lebar',e:'↔️',bg:'#fff0d4',s:'cm ↔ m',u:LEN,d:[2,4]},
-{n:'Suhu',e:'🌡️',bg:'#ffe5d0',s:'°C ↔ °F',d:[0,1],u:[['Celsius (°C)',1,'Suhu'],['Fahrenheit (°F)',1,'Suhu'],['Kelvin (K)',1,'Suhu'],['Rankine (°R)',1,'Suhu'],['Réaumur (°Ré)',1,'Suhu']]},
-{n:'Masa',e:'⏰',bg:'#d8f5e6',s:'s ↔ min',d:[1,2],u:[
- ['Mikrosaat (µs)',1e-6,'Singkat'],['Milisaat (ms)',.001,'Singkat'],['Saat (s)',1,'Singkat'],['Minit (min)',60,'Singkat'],
- ['Jam',3600,'Harian'],['Hari',86400,'Harian'],['Minggu',604800,'Harian'],['Dua minggu',1209600,'Harian'],
- ['Bulan (purata)',2629800,'Panjang'],['Tahun',31557600,'Panjang'],['Dekad',315576000,'Panjang'],['Abad',3155760000,'Panjang']]},
-{n:'Isipadu',e:'🧊',bg:'#ffe3ea',s:'ml ↔ L',d:[1,3],u:[
- ['Mikroliter (µl)',1e-6,'Metrik'],['Sentimeter padu (cm³)',.001,'Metrik'],['Mililiter (ml)',.001,'Metrik'],['Sentiliter (cl)',.01,'Metrik'],['Liter (L)',1,'Metrik'],['Hektoliter (hl)',100,'Metrik'],['Meter padu (m³)',1000,'Metrik'],
- ['Sudu teh AS (tsp)',.00492892,'Imperial'],['Sudu besar AS (tbsp)',.0147868,'Imperial'],['Auns cecair AS',.0295735,'Imperial'],['Cawan AS',.236588,'Imperial'],['Pint AS',.473176,'Imperial'],['Kuart AS',.946353,'Imperial'],['Gelen AS',3.785412,'Imperial'],['Pint UK',.568261,'Imperial'],['Gelen UK',4.54609,'Imperial'],['Inci padu',.016387064,'Imperial'],['Kaki padu',28.316847,'Imperial']]},
-{n:'Luas',e:'🔲',bg:'#e6e3ff',s:'m² ↔ km²',d:[2,4],u:[
- ['Sentimeter persegi (cm²)',1e-4,'Metrik'],['Meter persegi (m²)',1,'Metrik'],['Are (a)',100,'Metrik'],['Hektar (ha)',1e4,'Metrik'],['Kilometer persegi (km²)',1e6,'Metrik'],
- ['Inci persegi',6.4516e-4,'Imperial'],['Kaki persegi',.09290304,'Imperial'],['Ela persegi',.83612736,'Imperial'],['Ekar (acre)',4046.8564224,'Imperial'],['Batu persegi',2589988.110336,'Imperial']]},
-{n:'Kelajuan',e:'💨',bg:'#d8f5e6',s:'m/s ↔ km/j',d:[0,1],u:[
- ['Meter/saat (m/s)',1,'Metrik'],['Kilometer/jam (km/j)',1/3.6,'Metrik'],['Kaki/saat (ft/s)',.3048,'Imperial'],['Batu/jam (mph)',.44704,'Imperial'],
- ['Knot',.514444444,'Maritim & Angkasa'],['Mach',340.29,'Maritim & Angkasa'],['Kelajuan cahaya (c)',299792458,'Maritim & Angkasa']]},
-{n:'Data',e:'💾',bg:'#dcecff',s:'MB ↔ GB',d:[3,4],u:[
- ['Bit',.125,'Asas 10'],['Bait (B)',1,'Asas 10'],['Kilobait (KB)',1e3,'Asas 10'],['Megabait (MB)',1e6,'Asas 10'],['Gigabait (GB)',1e9,'Asas 10'],['Terabait (TB)',1e12,'Asas 10'],['Petabait (PB)',1e15,'Asas 10'],
- ['Kibibait (KiB)',1024,'Asas 2'],['Mebibait (MiB)',1048576,'Asas 2'],['Gibibait (GiB)',1073741824,'Asas 2'],['Tebibait (TiB)',1099511627776,'Asas 2']]},
-{n:'Tekanan',e:'🎈',bg:'#ffe5d0',s:'kPa ↔ bar',d:[1,3],u:[
- ['Pascal (Pa)',1,'Metrik'],['Kilopascal (kPa)',1000,'Metrik'],['Milibar (mbar)',100,'Metrik'],['Bar',1e5,'Metrik'],['Megapascal (MPa)',1e6,'Metrik'],
- ['Atmosfera (atm)',101325,'Lain-lain'],['mmHg / torr',133.322368,'Lain-lain'],['psi',6894.757293,'Imperial']]},
-{n:'Tenaga',e:'⚡',bg:'#fff0d4',s:'J ↔ kJ',d:[0,1],u:[
- ['Joule (J)',1,'Metrik'],['Kilojoule (kJ)',1000,'Metrik'],['Megajoule (MJ)',1e6,'Metrik'],['Watt-jam (Wh)',3600,'Metrik'],['Kilowatt-jam (kWh)',3.6e6,'Metrik'],
- ['Kalori (cal)',4.184,'Makanan & Haba'],['Kilokalori (kkal)',4184,'Makanan & Haba'],['BTU',1055.05585,'Makanan & Haba'],
- ['Kaki-paun (ft·lb)',1.3558179,'Imperial'],['Elektron-volt (eV)',1.602176634e-19,'Fizik']]},
-{n:'Kuasa',e:'🔌',bg:'#ffe3ea',s:'W ↔ kW',d:[0,1],u:[
- ['Watt (W)',1,'Metrik'],['Kilowatt (kW)',1000,'Metrik'],['Megawatt (MW)',1e6,'Metrik'],
- ['Kuasa kuda (hp)',745.69987,'Imperial'],['Kuasa kuda metrik (PS)',735.49875,'Imperial'],['BTU/jam',.29307107,'Imperial']]},
-{n:'Sudut',e:'📐',bg:'#e6e3ff',s:'° ↔ rad',d:[0,1],u:[
- ['Darjah (°)',1,'Sudut'],['Minit lengkok (′)',1/60,'Sudut'],['Saat lengkok (″)',1/3600,'Sudut'],['Radian (rad)',57.29577951308232,'Sudut'],['Gradian (grad)',.9,'Sudut'],['Putaran penuh',360,'Sudut']]}];
+{id:'height',n:['Tinggi','Height'],e:'📏',bg:'#ffe3ea',s:'cm ↔ m',u:LEN,d:[2,4]},
+{id:'distance',n:['Jarak','Distance'],e:'📍',bg:'#dcecff',s:'m ↔ km',u:LEN,d:[4,5]},
+{id:'weight',n:['Berat','Weight'],e:'⚖️',bg:'#e6e3ff',s:'g ↔ kg',d:[2,3],u:[
+ ['Mikrogram (µg)','Microgram (µg)',1e-9,'metric'],['Miligram (mg)','Milligram (mg)',1e-6,'metric'],['Gram (g)',null,.001,'metric'],['Kilogram (kg)',null,1,'metric'],['Tan metrik','Metric ton (t)',1000,'metric'],['Karat','Carat',2e-4,'metric'],
+ ['Gren (grain)','Grain (gr)',6.479891e-5,'imperial'],['Auns (oz)','Ounce (oz)',.028349523,'imperial'],['Paun (lb)','Pound (lb)',.45359237,'imperial'],['Stone',null,6.35029318,'imperial'],['Tan AS (short ton)','US ton (short ton)',907.18474,'imperial'],['Tan UK (long ton)','UK ton (long ton)',1016.0469088,'imperial']]},
+{id:'width',n:['Lebar','Width'],e:'↔️',bg:'#fff0d4',s:'cm ↔ m',u:LEN,d:[2,4]},
+{id:'temp',n:['Suhu','Temperature'],e:'🌡️',bg:'#ffe5d0',s:'°C ↔ °F',d:[0,1],u:[['Celsius (°C)',null,1,'temp'],['Fahrenheit (°F)',null,1,'temp'],['Kelvin (K)',null,1,'temp'],['Rankine (°R)',null,1,'temp'],['Réaumur (°Ré)',null,1,'temp']]},
+{id:'time',n:['Masa','Time'],e:'⏰',bg:'#d8f5e6',s:['s ↔ min','s ↔ min'],d:[2,3],u:[
+ ['Mikrosaat (µs)','Microsecond (µs)',1e-6,'short'],['Milisaat (ms)','Millisecond (ms)',.001,'short'],['Saat (s)','Second (s)',1,'short'],['Minit (min)','Minute (min)',60,'short'],
+ ['Jam','Hour (h)',3600,'daily'],['Hari','Day',86400,'daily'],['Minggu','Week',604800,'daily'],['Dua minggu','Fortnight',1209600,'daily'],
+ ['Bulan (purata)','Month (average)',2629800,'long'],['Tahun','Year',31557600,'long'],['Dekad','Decade',315576000,'long'],['Abad','Century',3155760000,'long']]},
+{id:'volume',n:['Isipadu','Volume'],e:'🧊',bg:'#ffe3ea',s:'ml ↔ L',d:[2,4],u:[
+ ['Mikroliter (µl)','Microliter (µl)',1e-6,'metric'],['Sentimeter padu (cm³)','Cubic centimeter (cm³)',.001,'metric'],['Mililiter (ml)','Milliliter (ml)',.001,'metric'],['Sentiliter (cl)','Centiliter (cl)',.01,'metric'],['Liter (L)',null,1,'metric'],['Hektoliter (hl)','Hectoliter (hl)',100,'metric'],['Meter padu (m³)','Cubic meter (m³)',1000,'metric'],
+ ['Sudu teh AS (tsp)','US teaspoon (tsp)',.00492892,'imperial'],['Sudu besar AS (tbsp)','US tablespoon (tbsp)',.0147868,'imperial'],['Auns cecair AS','US fluid ounce',.0295735,'imperial'],['Cawan AS','US cup',.236588,'imperial'],['Pint AS','US pint',.473176,'imperial'],['Kuart AS','US quart',.946353,'imperial'],['Gelen AS','US gallon',3.785412,'imperial'],['Pint UK','UK pint',.568261,'imperial'],['Gelen UK','UK gallon',4.54609,'imperial'],['Inci padu','Cubic inch',.016387064,'imperial'],['Kaki padu','Cubic foot',28.316847,'imperial']]},
+{id:'area',n:['Luas','Area'],e:'🔲',bg:'#e6e3ff',s:'m² ↔ km²',d:[1,4],u:[
+ ['Sentimeter persegi (cm²)','Square centimeter (cm²)',1e-4,'metric'],['Meter persegi (m²)','Square meter (m²)',1,'metric'],['Are (a)','Are (a)',100,'metric'],['Hektar (ha)','Hectare (ha)',1e4,'metric'],['Kilometer persegi (km²)','Square kilometer (km²)',1e6,'metric'],
+ ['Inci persegi','Square inch',6.4516e-4,'imperial'],['Kaki persegi','Square foot',.09290304,'imperial'],['Ela persegi','Square yard',.83612736,'imperial'],['Ekar (acre)','Acre',4046.8564224,'imperial'],['Batu persegi','Square mile',2589988.110336,'imperial']]},
+{id:'speed',n:['Kelajuan','Speed'],e:'💨',bg:'#d8f5e6',s:['m/s ↔ km/j','m/s ↔ km/h'],d:[0,1],u:[
+ ['Meter/saat (m/s)','Meter/second (m/s)',1,'metric'],['Kilometer/jam (km/j)','Kilometer/hour (km/h)',1/3.6,'metric'],['Kaki/saat (ft/s)','Foot/second (ft/s)',.3048,'imperial'],['Batu/jam (mph)','Mile/hour (mph)',.44704,'imperial'],
+ ['Knot',null,.514444444,'maritime'],['Mach',null,340.29,'maritime'],['Kelajuan cahaya (c)','Speed of light (c)',299792458,'maritime']]},
+{id:'data',n:['Data','Data'],e:'💾',bg:'#dcecff',s:'MB ↔ GB',d:[3,4],u:[
+ ['Bit',null,.125,'base10'],['Bait (B)','Byte (B)',1,'base10'],['Kilobait (KB)','Kilobyte (KB)',1e3,'base10'],['Megabait (MB)','Megabyte (MB)',1e6,'base10'],['Gigabait (GB)','Gigabyte (GB)',1e9,'base10'],['Terabait (TB)','Terabyte (TB)',1e12,'base10'],['Petabait (PB)','Petabyte (PB)',1e15,'base10'],
+ ['Kibibait (KiB)','Kibibyte (KiB)',1024,'base2'],['Mebibait (MiB)','Mebibyte (MiB)',1048576,'base2'],['Gibibait (GiB)','Gibibyte (GiB)',1073741824,'base2'],['Tebibait (TiB)','Tebibyte (TiB)',1099511627776,'base2']]},
+{id:'pressure',n:['Tekanan','Pressure'],e:'🎈',bg:'#ffe5d0',s:'kPa ↔ bar',d:[1,3],u:[
+ ['Pascal (Pa)',null,1,'metric'],['Kilopascal (kPa)',null,1000,'metric'],['Milibar (mbar)','Millibar (mbar)',100,'metric'],['Bar',null,1e5,'metric'],['Megapascal (MPa)',null,1e6,'metric'],
+ ['Atmosfera (atm)','Atmosphere (atm)',101325,'other'],['mmHg / torr',null,133.322368,'other'],['psi',null,6894.757293,'imperial']]},
+{id:'energy',n:['Tenaga','Energy'],e:'⚡',bg:'#fff0d4',s:'J ↔ kJ',d:[0,1],u:[
+ ['Joule (J)',null,1,'metric'],['Kilojoule (kJ)',null,1000,'metric'],['Megajoule (MJ)',null,1e6,'metric'],['Watt-jam (Wh)','Watt-hour (Wh)',3600,'metric'],['Kilowatt-jam (kWh)','Kilowatt-hour (kWh)',3.6e6,'metric'],
+ ['Kalori (cal)','Calorie (cal)',4.184,'food'],['Kilokalori (kkal)','Kilocalorie (kcal)',4184,'food'],['BTU',null,1055.05585,'food'],
+ ['Kaki-paun (ft·lb)','Foot-pound (ft·lb)',1.3558179,'imperial'],['Elektron-volt (eV)','Electronvolt (eV)',1.602176634e-19,'physics']]},
+{id:'power',n:['Kuasa','Power'],e:'🔌',bg:'#ffe3ea',s:'W ↔ kW',d:[0,1],u:[
+ ['Watt (W)',null,1,'metric'],['Kilowatt (kW)',null,1000,'metric'],['Megawatt (MW)',null,1e6,'metric'],
+ ['Kuasa kuda (hp)','Horsepower (hp)',745.69987,'imperial'],['Kuasa kuda metrik (PS)','Metric horsepower (PS)',735.49875,'imperial'],['BTU/jam','BTU/hour',.29307107,'imperial']]},
+{id:'angle',n:['Sudut','Angle'],e:'📐',bg:'#e6e3ff',s:'° ↔ rad',d:[0,1],u:[
+ ['Darjah (°)','Degree (°)',1,'angle'],['Minit lengkok (′)','Arcminute (′)',1/60,'angle'],['Saat lengkok (″)','Arcsecond (″)',1/3600,'angle'],['Radian (rad)',null,57.29577951308232,'angle'],['Gradian (grad)',null,.9,'angle'],['Putaran penuh','Full turn',360,'angle']]}];
 let cur=0;
-$('#cats').innerHTML=C.map((c,i)=>`<button class="cat" style="background:${c.bg}" onclick="pick(${i})"><span>${c.e}</span>${c.n}<small>${c.s}</small></button>`).join('');
-function opts(u){const g={};u.forEach((x,i)=>(g[x[2]]=g[x[2]]||[]).push(`<option value="${i}">${x[0]}</option>`));
-  return Object.entries(g).map(([k,v])=>`<optgroup label="${k}">${v.join('')}</optgroup>`).join('')}
+const li=()=>LANG==='en'?1:0;
+const cn=c=>c.n[li()];
+const sx=c=>Array.isArray(c.s)?c.s[li()]:c.s;
+const un=x=>(li()&&x[1])||x[0];
+function renderCats(){
+  $('#cats').innerHTML=C.map((c,i)=>`<button class="cat" style="background:${c.bg}" onclick="pick(${i})"><span>${c.e}</span>${cn(c)}<small>${sx(c)}</small></button>`).join('');
+}
+function opts(u){const g={};u.forEach((x,i)=>(g[x[3]]=g[x[3]]||[]).push(`<option value="${i}">${un(x)}</option>`));
+  return Object.entries(g).map(([k,v])=>`<optgroup label="${G[k][li()]}">${v.join('')}</optgroup>`).join('')}
+function fill(){$('#u1').innerHTML=$('#u2').innerHTML=opts(C[cur].u)}
+function head(){$('#ct').textContent=C[cur].e+' '+cn(C[cur])}
 function pick(i){
-  cur=i;const c=C[i];
-  $('#ct').textContent=c.e+' '+c.n;
-  $('#u1').innerHTML=$('#u2').innerHTML=opts(c.u);
-  $('#u1').value=c.d[0];$('#u2').value=c.d[1];
-  conv();
+  cur=i;fill();
+  $('#u1').value=C[i].d[0];$('#u2').value=C[i].d[1];
+  head();conv();
   window.scrollTo(0,0);$('main').scrollTop=0;
 }
 function nf(r){
@@ -183,23 +204,37 @@ function conv(){
   const c=C[cur],a=+$('#u1').value,b=+$('#u2').value,x=parseFloat($('#v1').value);
   if(isNaN(x)){$('#v2').value='';return}
   let r;
-  if(c.n==='Suhu'){
-    const t=[v=>v,v=>(v-32)*5/9,v=>v-273.15,v=>(v-491.67)*5/9,v=>v*1.25][a](x);
-    r=[v=>v,v=>v*9/5+32,v=>v+273.15,v=>(v+273.15)*9/5,v=>v*.8][b](t);
-  }else r=x*c.u[a][1]/c.u[b][1];
+  if(c.id==='temp'){
+    const k=[v=>v,v=>(v-32)*5/9,v=>v-273.15,v=>(v-491.67)*5/9,v=>v*1.25][a](x);
+    r=[v=>v,v=>v*9/5+32,v=>v+273.15,v=>(v+273.15)*9/5,v=>v*.8][b](k);
+  }else r=x*c.u[a][2]/c.u[b][2];
   $('#v2').value=nf(r);
 }
-pick(0);
+
+/* ---- Bahasa / Language ---- */
+function applyLang(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+  document.querySelectorAll('[data-l]').forEach(b=>b.classList.toggle('sel',b.dataset.l===LANG));
+  renderCats();
+  const a=$('#u1').value,b=$('#u2').value;fill();$('#u1').value=a;$('#u2').value=b;head();
+  if($('#res').dataset.err)$('#res').textContent=t('err');
+  if($('#modal').style.display==='flex')renderLog();
+}
+function setLang(l){LANG=l;try{localStorage.setItem('lang',l)}catch(_){}applyLang()}
 
 /* ---- Tab & Info perubahan ---- */
 function tab(i){
   document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',i===j));
   document.querySelectorAll('nav button').forEach((b,j)=>b.classList.toggle('on',i===j));
 }
+function renderLog(){
+  $('#log').innerHTML=CHANGELOG.map(c=>`<h3>v${c.v} (${t('build')} ${c.b}) <small>${c.tarikh}</small></h3><ul>${(c.nota[LANG]||c.nota.ms).map(n=>`<li>${n}</li>`).join('')}</ul>`).join('');
+}
 function openLog(){
-  $('#log').innerHTML=CHANGELOG.map(c=>`<h3>v${c.v} (Build ${c.b}) <small>${c.tarikh}</small></h3><ul>${c.nota.map(n=>`<li>${n}</li>`).join('')}</ul>`).join('');
-  $('#modal').style.display='flex';$('#dot').style.display='none';
+  renderLog();$('#modal').style.display='flex';$('#dot').style.display='none';
   try{localStorage.setItem('seen',VN+'|'+VC)}catch(_){}
 }
-try{if(localStorage.getItem('seen')!==VN+'|'+VC)openLog()}catch(_){}
+pick(0);applyLang();
+try{if(localStorage.getItem('seen')!==VN+'|'+VC)openLog();else $('#dot').style.display='none'}catch(_){}
 </script></body></html>
