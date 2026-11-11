@@ -1,4 +1,13 @@
 const CHANGELOG = [
+  { v: '1.4.0', b: 8, tarikh: '2026-11-11', nota: [
+    'Ikon Tetapan dan bar tab bertema kalkulator comel',
+    'Maskot dipaparkan dalam bahagian Tentang'
+  ]},
+  { v: '1.4.0', b: 7, tarikh: '2026-11-11', nota: [
+    'Tab Tetapan baharu dengan bahagian Tentang (About)',
+    'Nombor versi dan build dipindah ke Tentang',
+    'Kredit: dibuat oleh Asraf Ismail'
+  ]},
   { v: '1.3.0', b: 6, tarikh: '2026-11-11', nota: [
     'Bar status dan bar navigasi kini mengikut warna tema app'
   ]},
