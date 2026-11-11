@@ -6,9 +6,9 @@ body{margin:0;font-family:sans-serif;background:#f4f1ff;color:#1e1b4b;height:100
 header{padding:30px 18px 6px;display:flex;justify-content:space-between;align-items:center}
 h1{margin:0;font-size:30px;color:#7c5cff}
 small{color:#6b6b8a}
-#star{border:0;padding:0;background:none;border-radius:18px;width:64px;height:64px;box-shadow:0 3px 10px #7c5cff44;position:relative}
-#star img{width:100%;height:100%;border-radius:18px;display:block}
-#dot{position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:#ff6b8b;border:2px solid #f4f1ff}
+#mascot{height:84px;width:auto;margin:-4px 2px -12px 0;pointer-events:none;-webkit-user-select:none;user-select:none;filter:drop-shadow(0 5px 6px rgba(92,60,200,.22));animation:bob 3.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-4px) rotate(1.5deg)}}
+@media(prefers-reduced-motion:reduce){#mascot{animation:none}}
 main{flex:1;overflow:auto;padding:8px 14px}
 .page{display:none}.page.on{display:block}
 #disp{background:#e9e8ff;border-radius:22px;padding:14px 18px;text-align:right;min-height:104px}
@@ -37,7 +37,7 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
 </style></head><body>
 <header>
   <div><h1><span data-i="title"></span> ⭐</h1><small data-i="tagline"></small></div>
-  <button id="star" onclick="openLog()"><img src="logo.png" alt=""><i id="dot"></i></button>
+  <img id="mascot" src="mascot.png" alt="">
 </header>
 <main>
   <section class="page on">
@@ -54,7 +54,7 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
   </section>
   <section class="page">
     <div class="box" style="margin-top:0;text-align:center">
-      <img src="mascot.png" width="104" height="104" style="border-radius:26px" alt="">
+      <img src="mascot.png" alt="" style="height:110px;width:auto;filter:drop-shadow(0 5px 6px rgba(92,60,200,.22))">
       <h2 style="margin:4px 0;color:#7c5cff" data-i="title"></h2>
       <small data-i="tagline"></small>
     </div>
@@ -232,9 +232,9 @@ function renderLog(){
   $('#log').innerHTML=CHANGELOG.map(c=>`<h3>v${c.v} (${t('build')} ${c.b}) <small>${c.tarikh}</small></h3><ul>${(c.nota[LANG]||c.nota.ms).map(n=>`<li>${n}</li>`).join('')}</ul>`).join('');
 }
 function openLog(){
-  renderLog();$('#modal').style.display='flex';$('#dot').style.display='none';
+  renderLog();$('#modal').style.display='flex';
   try{localStorage.setItem('seen',VN+'|'+VC)}catch(_){}
 }
 pick(0);applyLang();
-try{if(localStorage.getItem('seen')!==VN+'|'+VC)openLog();else $('#dot').style.display='none'}catch(_){}
+try{if(localStorage.getItem('seen')!==VN+'|'+VC)openLog()}catch(_){}
 </script></body></html>

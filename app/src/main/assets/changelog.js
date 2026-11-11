@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.5.0', b: 11, tarikh: '2026-11-11', nota: {
+    ms: ['Maskot kini menyatu dengan latar (tanpa kotak) dan bukan lagi butang', 'Info perubahan terkini boleh dibuka dari Tetapan > Tentang'],
+    en: ['Mascot now blends into the background (no box) and is no longer a button', 'Latest changes can be opened from Settings > About'] }},
   { v: '1.5.0', b: 10, tarikh: '2026-11-11', nota: {
     ms: ['Logo maskot diletakkan pada butang info perubahan di bahagian atas'],
     en: ['Mascot logo placed on the latest-changes button at the top'] }},
