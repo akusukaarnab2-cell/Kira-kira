@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 23, tarikh: '2026-11-11', nota: {
+    ms: ['Bayang pada semua tulisan dan nombor supaya lebih jelas', 'Warna tulisan kecil dipekatkan sedikit'],
+    en: ['Shadows added to all text and numbers for better clarity', 'Small text colours made slightly deeper'] }},
   { v: '1.6.0', b: 22, tarikh: '2026-11-11', nota: {
     ms: ['Tulisan baharu yang comel (Fredoka) termasuk nombor', 'Warna lebih ceria: latar berkecerunan, butang timbul bergaya gula-gula', 'Nombor paparan berwarna kecerunan ungu ke merah jambu'],
     en: ['New cute font (Fredoka), including the numbers', 'Brighter colours: gradient background and candy-style raised buttons', 'Display number in a purple-to-pink gradient'] }},
