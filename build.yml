@@ -1,0 +1,42 @@
+name: Bina APK
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Buka zip projek (kali pertama sahaja)
+        run: |
+          if [ -f kirakira.zip ]; then
+            unzip -o kirakira.zip
+            rm kirakira.zip
+            git config user.name "github-actions"
+            git config user.email "actions@github.com"
+            git add -A
+            git commit -m "Sediakan projek KiraKira dari zip"
+            git push
+          fi
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.9
+      - run: gradle assembleDebug
+      - id: ver
+        run: |
+          N=$(grep VERSION_NAME version.properties | cut -d= -f2)
+          B=$(grep BUILD_NUMBER version.properties | cut -d= -f2)
+          echo "tag=v$N-b$B" >> $GITHUB_OUTPUT
+          cp app/build/outputs/apk/debug/app-debug.apk KiraKira-v$N-b$B.apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: KiraKira ${{ steps.ver.outputs.tag }}
+          files: KiraKira-*.apk
