@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="ms"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:sans-serif;background:#f4f1ff;color:#1e1b4b;height:100vh;display:flex;flex-direction:column}
+header{padding:30px 18px 6px;display:flex;justify-content:space-between;align-items:center}
+h1{margin:0;font-size:30px;color:#7c5cff}
+small{color:#6b6b8a}
+#star{border:0;background:#fff;border-radius:50%;width:48px;height:48px;font-size:22px;box-shadow:0 2px 8px #0002;position:relative}
+#dot{position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;background:#ff6b8b}
+main{flex:1;overflow:auto;padding:8px 14px}
+.page{display:none}.page.on{display:block}
+#disp{background:#e9e8ff;border-radius:22px;padding:14px 18px;text-align:right;min-height:104px}
+#ex{color:#777;font-size:16px;min-height:20px}
+#res{font-size:44px;font-weight:700;word-break:break-all}
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.pad button{height:62px;border:0;border-radius:18px;font-size:24px;font-weight:700;background:#fffbea;color:#1e1b4b;box-shadow:0 2px 4px #0001}
+.pad .f{background:#e6e3ff;color:#7c5cff}.pad .o{background:#ffe1c2;color:#d9480f}
+.pad .c{background:#ffd9e0;color:#c92a2a}.pad .eq{background:#b8f0d8;color:#087f5b}
+.pad .z{grid-column:span 2}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cat{border:0;border-radius:18px;padding:14px 6px;font-size:17px;font-weight:700;color:#1e1b4b}
+.cat span{display:block;font-size:30px}.cat small{display:block;font-weight:400}
+.box{background:#fff;border-radius:18px;padding:14px;margin-top:12px}
+.row{display:flex;gap:8px;margin-top:8px}
+input,select{flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:12px;font-size:18px;background:#f8f8ff}
+nav{display:flex;background:#fff;padding:8px;gap:8px}
+nav button{flex:1;border:0;border-radius:18px;padding:10px;background:none;font-size:15px;color:#777}
+nav button.on{background:#e6e3ff;color:#7c5cff;font-weight:700}
+#modal{display:none;position:fixed;inset:0;background:#0006;align-items:center;justify-content:center;padding:20px}
+#modal .box{max-height:80vh;overflow:auto;width:100%;margin:0}
+</style></head><body>
+<header>
+  <div><h1>KiraKira ⭐</h1><small>Kira apa sahaja, lebih mudah!</small><br><small id="ver"></small></div>
+  <button id="star" onclick="openLog()">✨<i id="dot"></i></button>
+</header>
+<main>
+  <section class="page on">
+    <div id="disp"><div id="ex"></div><div id="res">0</div></div>
+    <div class="pad" id="pad"></div>
+  </section>
+  <section class="page">
+    <div class="cats" id="cats"></div>
+    <div class="box"><b id="ct">Tinggi</b>
+      <div class="row"><input id="v1" type="number" value="100" oninput="conv()"><select id="u1" onchange="conv()"></select></div>
+      <div class="row"><input id="v2" readonly><select id="u2" onchange="conv()"></select></div>
+    </div>
+  </section>
+</main>
+<nav><button class="on" onclick="tab(0)">🧮 Kira</button><button onclick="tab(1)">🔁 Penukar</button></nav>
+<div id="modal" onclick="if(event.target===this)this.style.display='none'">
+  <div class="box"><h2 style="margin-top:0">Info Perubahan Terkini ✨</h2><div id="log"></div>
+  <button class="cat" style="background:#e6e3ff;width:100%" onclick="$('#modal').style.display='none'">Tutup</button></div>
+</div>
+<script src="changelog.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const [VN,VC]=(window.App?App.version():'dev|0').split('|');
+$('#ver').textContent='v'+VN+' (Build '+VC+')';
+
+/* ---- Kalkulator ---- */
+let ex='',done=false;
+const K=[['C','C','c'],['+/-','n','f'],['%','%','f'],['÷','/','o'],['7'],['8'],['9'],['×','*','o'],
+['4'],['5'],['6'],['−','-','o'],['1'],['2'],['3'],['+','+','o'],['0','0','z'],['.','.',''],['=','=','eq']];
+$('#pad').innerHTML=K.map(([l,k,c])=>`<button class="${c||''}" data-k="${k||l}">${l}</button>`).join('');
+$('#pad').onclick=e=>{const b=e.target.closest('button');if(b)key(b.dataset.k)};
+const pretty=s=>s.replace(/\*/g,'×').replace(/\//g,'÷');
+const fmt=n=>Number(n.toFixed(8)).toLocaleString('en-US',{maximumFractionDigits:8});
+function show(r){$('#ex').textContent=pretty(ex);$('#res').textContent=r!==undefined?r:((ex.match(/[0-9.]+$/)||['0'])[0])}
+function key(k){
+  const op=/[+\-*\/]$/;
+  if(k==='C'){ex='';done=false;return show('0')}
+  if(k==='='){
+    if(!ex)return;
+    try{
+      const e=ex.replace(/[+\-*\/.]+$/,'');
+      const r=Function('return '+e)();
+      if(!isFinite(r)){ex='';return show('Ralat')}
+      show(fmt(r));$('#ex').textContent=pretty(e)+' =';ex=String(r);done=true;
+    }catch(_){ex='';show('Ralat')}
+    return;
+  }
+  if(/^[0-9]$/.test(k)){
+    if(done){ex='';done=false}
+    if(/(^|[+\-*\/])0$/.test(ex))ex=ex.slice(0,-1);
+    ex+=k;return show();
+  }
+  if(k==='.'){
+    if(done){ex='';done=false}
+    const last=(ex.match(/[0-9.]+$/)||[''])[0];
+    if(last.includes('.'))return;
+    ex+=(last===''?'0.':'.');return show();
+  }
+  if(k==='%'){ex=ex.replace(/[0-9.]+$/,m=>String(parseFloat(m)/100));return show()}
+  if(k==='n'){
+    ex=ex.replace(/([+\-*\/]?)([0-9.]+)$/,(m,p,n)=>p===''?'-'+n:p==='+'?'-'+n:p==='-'?'+'+n:p+'-'+n);
+    return show();
+  }
+  done=false;
+  if(!ex){if(k==='-')ex='-';return show()}
+  if(op.test(ex))ex=ex.slice(0,-1);
+  ex+=k;show();
+}
+
+/* ---- Penukar unit ---- */
+const C=[
+{n:'Tinggi',e:'📏',bg:'#ffe3ea',u:{mm:.001,cm:.01,m:1}},
+{n:'Jarak',e:'📍',bg:'#dcecff',u:{m:1,km:1000}},
+{n:'Berat',e:'⚖️',bg:'#e6e3ff',u:{g:.001,kg:1}},
+{n:'Lebar',e:'↔️',bg:'#fff0d4',u:{cm:.01,m:1}},
+{n:'Suhu',e:'🌡️',bg:'#ffe5d0',u:{'°C':1,'°F':1}},
+{n:'Masa',e:'⏰',bg:'#d8f5e6',u:{s:1,min:60}},
+{n:'Isipadu',e:'🧊',bg:'#ffe3ea',u:{ml:.001,L:1}},
+{n:'Luas',e:'🔲',bg:'#e6e3ff',u:{'m²':1,'km²':1e6}}];
+let cur=0;
+$('#cats').innerHTML=C.map((c,i)=>`<button class="cat" style="background:${c.bg}" onclick="pick(${i})"><span>${c.e}</span>${c.n}<small>${Object.keys(c.u).join(' ↔ ')}</small></button>`).join('');
+function pick(i){
+  cur=i;const k=Object.keys(C[i].u);
+  $('#ct').textContent=C[i].n;
+  $('#u1').innerHTML=$('#u2').innerHTML=k.map(x=>`<option>${x}</option>`).join('');
+  $('#u1').selectedIndex=k.length>2?1:0;
+  $('#u2').selectedIndex=k.length>2?2:1;
+  conv();
+}
+function conv(){
+  const c=C[cur],a=$('#u1').value,b=$('#u2').value,x=parseFloat($('#v1').value);
+  if(isNaN(x)){$('#v2').value='';return}
+  const r=c.n==='Suhu'?(a===b?x:a==='°C'?x*9/5+32:(x-32)*5/9):x*c.u[a]/c.u[b];
+  $('#v2').value=+r.toFixed(6);
+}
+pick(0);
+
+/* ---- Tab & Info perubahan ---- */
+function tab(i){
+  document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',i===j));
+  document.querySelectorAll('nav button').forEach((b,j)=>b.classList.toggle('on',i===j));
+}
+function openLog(){
+  $('#log').innerHTML=CHANGELOG.map(c=>`<h3>v${c.v} (Build ${c.b}) <small>${c.tarikh}</small></h3><ul>${c.nota.map(n=>`<li>${n}</li>`).join('')}</ul>`).join('');
+  $('#modal').style.display='flex';$('#dot').style.display='none';
+  try{localStorage.setItem('seen',VN+'|'+VC)}catch(_){}
+}
+try{if(localStorage.getItem('seen')!==VN+'|'+VC)openLog()}catch(_){}
+</script></body></html>
