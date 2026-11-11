@@ -15,10 +15,12 @@ jobs:
           if [ -f kirakira.zip ]; then
             unzip -o kirakira.zip
             rm kirakira.zip
+            MSG="Kemas kini projek dari zip"
+            if [ -f tools/notes.js ]; then MSG="$(node tools/notes.js commit)"; fi
             git config user.name "github-actions"
             git config user.email "actions@github.com"
             git add -A
-            git commit -m "Kemas kini projek dari zip"
+            git commit -m "$MSG"
             git push
           fi
       - uses: actions/setup-java@v4
@@ -38,8 +40,14 @@ jobs:
           echo "app=$A" >> $GITHUB_OUTPUT
           echo "apk=$A-v$N-b$B.apk" >> $GITHUB_OUTPUT
           cp app/build/outputs/apk/debug/app-debug.apk "$A-v$N-b$B.apk"
+          if [ -f tools/notes.js ]; then
+            node tools/notes.js release > RELEASE_NOTES.md
+          else
+            echo "$A v$N (Build $B)" > RELEASE_NOTES.md
+          fi
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.tag }}
           name: ${{ steps.ver.outputs.app }} ${{ steps.ver.outputs.tag }}
+          body_path: RELEASE_NOTES.md
           files: ${{ steps.ver.outputs.apk }}
