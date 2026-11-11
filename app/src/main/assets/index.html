@@ -23,7 +23,8 @@ main{flex:1;overflow:auto;padding:8px 14px}
 .cat span{display:block;font-size:30px}.cat small{display:block;font-weight:400}
 .box{background:#fff;border-radius:18px;padding:14px;margin-top:12px}
 .row{display:flex;gap:8px;margin-top:8px}
-input,select{flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:12px;font-size:18px;background:#f8f8ff}
+input{flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:12px;font-size:18px;background:#f8f8ff}
+select{flex:1.5;min-width:0;padding:12px;border:1px solid #ddd;border-radius:12px;font-size:18px;background:#f8f8ff}
 nav{display:flex;background:#fff;padding:8px;gap:8px}
 nav button{flex:1;border:0;border-radius:18px;padding:10px;background:none;font-size:15px;color:#777}
 nav button.on{background:#e6e3ff;color:#7c5cff;font-weight:700}
@@ -40,11 +41,12 @@ nav button.on{background:#e6e3ff;color:#7c5cff;font-weight:700}
     <div class="pad" id="pad"></div>
   </section>
   <section class="page">
-    <div class="cats" id="cats"></div>
-    <div class="box"><b id="ct">Tinggi</b>
+    <div class="box" style="margin-top:0"><b id="ct">Tinggi</b>
       <div class="row"><input id="v1" type="number" value="100" oninput="conv()"><select id="u1" onchange="conv()"></select></div>
       <div class="row"><input id="v2" readonly><select id="u2" onchange="conv()"></select></div>
     </div>
+    <p style="margin:14px 4px 8px"><small>Pilih jenis pertukaran:</small></p>
+    <div class="cats" id="cats"></div>
   </section>
 </main>
 <nav><button class="on" onclick="tab(0)">🧮 Kira</button><button onclick="tab(1)">🔁 Penukar</button></nav>
@@ -103,30 +105,78 @@ function key(k){
 }
 
 /* ---- Penukar unit ---- */
+/* format unit: [nama, faktor ke unit asas, kumpulan] */
+const LEN=[
+['Mikrometer (µm)',1e-6,'Metrik'],['Milimeter (mm)',.001,'Metrik'],['Sentimeter (cm)',.01,'Metrik'],['Desimeter (dm)',.1,'Metrik'],['Meter (m)',1,'Metrik'],['Kilometer (km)',1000,'Metrik'],
+['Thou / mil',2.54e-5,'Imperial'],['Inci',.0254,'Imperial'],['Kaki (feet)',.3048,'Imperial'],['Ela (yard)',.9144,'Imperial'],['Rantai (chain)',20.1168,'Imperial'],['Furlong',201.168,'Imperial'],['Batu (miles)',1609.344,'Imperial'],
+['Jari',.0191,'Tradisional Melayu'],['Kilan',.1778,'Tradisional Melayu'],['Jengkal',.2286,'Tradisional Melayu'],['Hasta',.4572,'Tradisional Melayu'],['Langkah',.762,'Tradisional Melayu'],['Depa',1.8288,'Tradisional Melayu'],
+['Fathom (depa laut)',1.8288,'Maritim & Angkasa'],['Kabel (cable)',185.2,'Maritim & Angkasa'],['Batu Nautika (nautical mile)',1852,'Maritim & Angkasa'],['Unit Astronomi (AU)',1.495978707e11,'Maritim & Angkasa'],['Tahun Cahaya (light-year)',9.4607304725808e15,'Maritim & Angkasa'],['Parsec',3.0856775814913673e16,'Maritim & Angkasa']];
 const C=[
-{n:'Tinggi',e:'📏',bg:'#ffe3ea',u:{mm:.001,cm:.01,m:1}},
-{n:'Jarak',e:'📍',bg:'#dcecff',u:{m:1,km:1000}},
-{n:'Berat',e:'⚖️',bg:'#e6e3ff',u:{g:.001,kg:1}},
-{n:'Lebar',e:'↔️',bg:'#fff0d4',u:{cm:.01,m:1}},
-{n:'Suhu',e:'🌡️',bg:'#ffe5d0',u:{'°C':1,'°F':1}},
-{n:'Masa',e:'⏰',bg:'#d8f5e6',u:{s:1,min:60}},
-{n:'Isipadu',e:'🧊',bg:'#ffe3ea',u:{ml:.001,L:1}},
-{n:'Luas',e:'🔲',bg:'#e6e3ff',u:{'m²':1,'km²':1e6}}];
+{n:'Tinggi',e:'📏',bg:'#ffe3ea',s:'cm ↔ m',u:LEN,d:[2,4]},
+{n:'Jarak',e:'📍',bg:'#dcecff',s:'m ↔ km',u:LEN,d:[4,5]},
+{n:'Berat',e:'⚖️',bg:'#e6e3ff',s:'g ↔ kg',d:[2,3],u:[
+ ['Mikrogram (µg)',1e-9,'Metrik'],['Miligram (mg)',1e-6,'Metrik'],['Gram (g)',.001,'Metrik'],['Kilogram (kg)',1,'Metrik'],['Tan metrik',1000,'Metrik'],['Karat',2e-4,'Metrik'],
+ ['Gren (grain)',6.479891e-5,'Imperial'],['Auns (oz)',.028349523,'Imperial'],['Paun (lb)',.45359237,'Imperial'],['Stone',6.35029318,'Imperial'],['Tan AS (short ton)',907.18474,'Imperial'],['Tan UK (long ton)',1016.0469088,'Imperial'],
+ ['Hun',.000378,'Tradisional Melayu'],['Chi',.00378,'Tradisional Melayu'],['Tahil',.0378,'Tradisional Melayu'],['Kati',.6048,'Tradisional Melayu'],['Pikul',60.48,'Tradisional Melayu'],['Koyan',2419.2,'Tradisional Melayu']]},
+{n:'Lebar',e:'↔️',bg:'#fff0d4',s:'cm ↔ m',u:LEN,d:[2,4]},
+{n:'Suhu',e:'🌡️',bg:'#ffe5d0',s:'°C ↔ °F',d:[0,1],u:[['Celsius (°C)',1,'Suhu'],['Fahrenheit (°F)',1,'Suhu'],['Kelvin (K)',1,'Suhu'],['Rankine (°R)',1,'Suhu'],['Réaumur (°Ré)',1,'Suhu']]},
+{n:'Masa',e:'⏰',bg:'#d8f5e6',s:'s ↔ min',d:[1,2],u:[
+ ['Mikrosaat (µs)',1e-6,'Singkat'],['Milisaat (ms)',.001,'Singkat'],['Saat (s)',1,'Singkat'],['Minit (min)',60,'Singkat'],
+ ['Jam',3600,'Harian'],['Hari',86400,'Harian'],['Minggu',604800,'Harian'],['Dua minggu',1209600,'Harian'],
+ ['Bulan (purata)',2629800,'Panjang'],['Tahun',31557600,'Panjang'],['Dekad',315576000,'Panjang'],['Abad',3155760000,'Panjang']]},
+{n:'Isipadu',e:'🧊',bg:'#ffe3ea',s:'ml ↔ L',d:[1,3],u:[
+ ['Mikroliter (µl)',1e-6,'Metrik'],['Sentimeter padu (cm³)',.001,'Metrik'],['Mililiter (ml)',.001,'Metrik'],['Sentiliter (cl)',.01,'Metrik'],['Liter (L)',1,'Metrik'],['Hektoliter (hl)',100,'Metrik'],['Meter padu (m³)',1000,'Metrik'],
+ ['Sudu teh AS (tsp)',.00492892,'Imperial'],['Sudu besar AS (tbsp)',.0147868,'Imperial'],['Auns cecair AS',.0295735,'Imperial'],['Cawan AS',.236588,'Imperial'],['Pint AS',.473176,'Imperial'],['Kuart AS',.946353,'Imperial'],['Gelen AS',3.785412,'Imperial'],['Pint UK',.568261,'Imperial'],['Gelen UK',4.54609,'Imperial'],['Inci padu',.016387064,'Imperial'],['Kaki padu',28.316847,'Imperial'],
+ ['Cupak',1.1365,'Tradisional Melayu'],['Gantang',4.54609,'Tradisional Melayu']]},
+{n:'Luas',e:'🔲',bg:'#e6e3ff',s:'m² ↔ km²',d:[2,4],u:[
+ ['Sentimeter persegi (cm²)',1e-4,'Metrik'],['Meter persegi (m²)',1,'Metrik'],['Are (a)',100,'Metrik'],['Hektar (ha)',1e4,'Metrik'],['Kilometer persegi (km²)',1e6,'Metrik'],
+ ['Inci persegi',6.4516e-4,'Imperial'],['Kaki persegi',.09290304,'Imperial'],['Ela persegi',.83612736,'Imperial'],['Ekar (acre)',4046.8564224,'Imperial'],['Batu persegi',2589988.110336,'Imperial'],
+ ['Relong',2871,'Tradisional Melayu']]},
+{n:'Kelajuan',e:'💨',bg:'#d8f5e6',s:'m/s ↔ km/j',d:[0,1],u:[
+ ['Meter/saat (m/s)',1,'Metrik'],['Kilometer/jam (km/j)',1/3.6,'Metrik'],['Kaki/saat (ft/s)',.3048,'Imperial'],['Batu/jam (mph)',.44704,'Imperial'],
+ ['Knot',.514444444,'Maritim & Angkasa'],['Mach',340.29,'Maritim & Angkasa'],['Kelajuan cahaya (c)',299792458,'Maritim & Angkasa']]},
+{n:'Data',e:'💾',bg:'#dcecff',s:'MB ↔ GB',d:[3,4],u:[
+ ['Bit',.125,'Asas 10'],['Bait (B)',1,'Asas 10'],['Kilobait (KB)',1e3,'Asas 10'],['Megabait (MB)',1e6,'Asas 10'],['Gigabait (GB)',1e9,'Asas 10'],['Terabait (TB)',1e12,'Asas 10'],['Petabait (PB)',1e15,'Asas 10'],
+ ['Kibibait (KiB)',1024,'Asas 2'],['Mebibait (MiB)',1048576,'Asas 2'],['Gibibait (GiB)',1073741824,'Asas 2'],['Tebibait (TiB)',1099511627776,'Asas 2']]},
+{n:'Tekanan',e:'🎈',bg:'#ffe5d0',s:'kPa ↔ bar',d:[1,3],u:[
+ ['Pascal (Pa)',1,'Metrik'],['Kilopascal (kPa)',1000,'Metrik'],['Milibar (mbar)',100,'Metrik'],['Bar',1e5,'Metrik'],['Megapascal (MPa)',1e6,'Metrik'],
+ ['Atmosfera (atm)',101325,'Lain-lain'],['mmHg / torr',133.322368,'Lain-lain'],['psi',6894.757293,'Imperial']]},
+{n:'Tenaga',e:'⚡',bg:'#fff0d4',s:'J ↔ kJ',d:[0,1],u:[
+ ['Joule (J)',1,'Metrik'],['Kilojoule (kJ)',1000,'Metrik'],['Megajoule (MJ)',1e6,'Metrik'],['Watt-jam (Wh)',3600,'Metrik'],['Kilowatt-jam (kWh)',3.6e6,'Metrik'],
+ ['Kalori (cal)',4.184,'Makanan & Haba'],['Kilokalori (kkal)',4184,'Makanan & Haba'],['BTU',1055.05585,'Makanan & Haba'],
+ ['Kaki-paun (ft·lb)',1.3558179,'Imperial'],['Elektron-volt (eV)',1.602176634e-19,'Fizik']]},
+{n:'Kuasa',e:'🔌',bg:'#ffe3ea',s:'W ↔ kW',d:[0,1],u:[
+ ['Watt (W)',1,'Metrik'],['Kilowatt (kW)',1000,'Metrik'],['Megawatt (MW)',1e6,'Metrik'],
+ ['Kuasa kuda (hp)',745.69987,'Imperial'],['Kuasa kuda metrik (PS)',735.49875,'Imperial'],['BTU/jam',.29307107,'Imperial']]},
+{n:'Sudut',e:'📐',bg:'#e6e3ff',s:'° ↔ rad',d:[0,1],u:[
+ ['Darjah (°)',1,'Sudut'],['Minit lengkok (′)',1/60,'Sudut'],['Saat lengkok (″)',1/3600,'Sudut'],['Radian (rad)',57.29577951308232,'Sudut'],['Gradian (grad)',.9,'Sudut'],['Putaran penuh',360,'Sudut']]}];
 let cur=0;
-$('#cats').innerHTML=C.map((c,i)=>`<button class="cat" style="background:${c.bg}" onclick="pick(${i})"><span>${c.e}</span>${c.n}<small>${Object.keys(c.u).join(' ↔ ')}</small></button>`).join('');
+$('#cats').innerHTML=C.map((c,i)=>`<button class="cat" style="background:${c.bg}" onclick="pick(${i})"><span>${c.e}</span>${c.n}<small>${c.s}</small></button>`).join('');
+function opts(u){const g={};u.forEach((x,i)=>(g[x[2]]=g[x[2]]||[]).push(`<option value="${i}">${x[0]}</option>`));
+  return Object.entries(g).map(([k,v])=>`<optgroup label="${k}">${v.join('')}</optgroup>`).join('')}
 function pick(i){
-  cur=i;const k=Object.keys(C[i].u);
-  $('#ct').textContent=C[i].n;
-  $('#u1').innerHTML=$('#u2').innerHTML=k.map(x=>`<option>${x}</option>`).join('');
-  $('#u1').selectedIndex=k.length>2?1:0;
-  $('#u2').selectedIndex=k.length>2?2:1;
+  cur=i;const c=C[i];
+  $('#ct').textContent=c.e+' '+c.n;
+  $('#u1').innerHTML=$('#u2').innerHTML=opts(c.u);
+  $('#u1').value=c.d[0];$('#u2').value=c.d[1];
   conv();
+  window.scrollTo(0,0);$('main').scrollTop=0;
+}
+function nf(r){
+  if(r===0)return '0';
+  const a=Math.abs(r);
+  if(a>=1e9||a<1e-6)return r.toExponential(6).replace(/\.?0+e/,'e');
+  return String(+r.toPrecision(10));
 }
 function conv(){
-  const c=C[cur],a=$('#u1').value,b=$('#u2').value,x=parseFloat($('#v1').value);
+  const c=C[cur],a=+$('#u1').value,b=+$('#u2').value,x=parseFloat($('#v1').value);
   if(isNaN(x)){$('#v2').value='';return}
-  const r=c.n==='Suhu'?(a===b?x:a==='°C'?x*9/5+32:(x-32)*5/9):x*c.u[a]/c.u[b];
-  $('#v2').value=+r.toFixed(6);
+  let r;
+  if(c.n==='Suhu'){
+    const t=[v=>v,v=>(v-32)*5/9,v=>v-273.15,v=>(v-491.67)*5/9,v=>v*1.25][a](x);
+    r=[v=>v,v=>v*9/5+32,v=>v+273.15,v=>(v+273.15)*9/5,v=>v*.8][b](t);
+  }else r=x*c.u[a][1]/c.u[b][1];
+  $('#v2').value=nf(r);
 }
 pick(0);
 
