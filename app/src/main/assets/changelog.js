@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.5.0', b: 19, tarikh: '2026-11-11', nota: {
+    ms: ['Butang tukar unit baharu: unit atas dan bawah bertukar tempat dengan sekali tekan'],
+    en: ['New swap button: the top and bottom units trade places with one tap'] }},
   { v: '1.5.0', b: 18, tarikh: '2026-11-11', nota: {
     ms: ['Semua ikon ditukar kepada ikon comel bertema kalkulator (jenis pertukaran, bintang, bahasa dan info)'],
     en: ['All icons are now cute calculator-themed icons (conversion types, star, language and info)'] }},

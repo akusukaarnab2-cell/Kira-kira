@@ -43,6 +43,10 @@ nav button.on{background:#e6e3ff;color:#7c5cff;font-weight:700}
 .ab{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eee;font-size:16px}
 nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
 .cat.sel{background:#e6e3ff!important;outline:3px solid #7c5cff}
+.swaprow{display:flex;justify-content:center;margin:8px 0 0}
+#swap{width:46px;height:46px;border-radius:50%;border:2.5px solid #7c5cff;background:#e6e3ff;box-shadow:0 3px 8px rgba(124,92,255,.25);padding:0;display:flex;align-items:center;justify-content:center;transition:transform .35s ease,background .15s}
+#swap:active{background:#d9ccff}
+#swap svg{width:30px;height:30px}
 #modal{display:none;position:fixed;inset:0;background:#0006;align-items:center;justify-content:center;padding:20px}
 #modal .box{max-height:80vh;overflow:auto;width:100%;margin:0}
 </style></head><body>
@@ -58,6 +62,7 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
   <section class="page">
     <div class="box" style="margin-top:0"><b id="ct">Tinggi</b>
       <div class="row"><input id="v1" type="number" value="100" oninput="conv()"><select id="u1" onchange="conv()"></select></div>
+      <div class="swaprow"><button id="swap" onclick="swapUnits()"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 30V11M8 16.5l5.5-5.5 5.5 5.5" stroke="#7c5cff"/><path d="M26.5 10v19M21 23.5l5.5 5.5 5.5-5.5" stroke="#3fc99a"/></svg></button></div>
       <div class="row"><input id="v2" readonly><select id="u2" onchange="conv()"></select></div>
     </div>
     <p style="margin:14px 4px 8px"><small data-i="pick"></small></p>
@@ -95,8 +100,8 @@ const [VN,VC]=(window.App?App.version():'dev|0').split('|');
 $('#vn').textContent=VN;$('#vc').textContent=VC;
 let LANG='ms';try{LANG=localStorage.getItem('lang')||'ms'}catch(_){}
 const T={
-ms:{title:'Kalkulator',tagline:'Kira apa sahaja, lebih mudah!',navCalc:'Kira',navConv:'Penukar',navSet:'Tetapan',pick:'Pilih jenis pertukaran:',err:'Ralat',about:'Tentang',version:'Versi',build:'Build',by:'Dibuat oleh',changes:'Info perubahan terkini',changesTitle:'Info Perubahan Terkini',close:'Tutup',lang:'Bahasa'},
-en:{title:'Calculator',tagline:'Calculate anything, made easier!',navCalc:'Calc',navConv:'Converter',navSet:'Settings',pick:'Choose a conversion type:',err:'Error',about:'About',version:'Version',build:'Build',by:'Made by',changes:'Latest changes',changesTitle:'Latest Changes',close:'Close',lang:'Language'}};
+ms:{title:'Kalkulator',tagline:'Kira apa sahaja, lebih mudah!',swap:'Tukar unit',navCalc:'Kira',navConv:'Penukar',navSet:'Tetapan',pick:'Pilih jenis pertukaran:',err:'Ralat',about:'Tentang',version:'Versi',build:'Build',by:'Dibuat oleh',changes:'Info perubahan terkini',changesTitle:'Info Perubahan Terkini',close:'Tutup',lang:'Bahasa'},
+en:{title:'Calculator',tagline:'Calculate anything, made easier!',swap:'Swap units',navCalc:'Calc',navConv:'Converter',navSet:'Settings',pick:'Choose a conversion type:',err:'Error',about:'About',version:'Version',build:'Build',by:'Made by',changes:'Latest changes',changesTitle:'Latest Changes',close:'Close',lang:'Language'}};
 const t=k=>T[LANG][k];
 
 /* ---- Kalkulator ---- */
@@ -235,6 +240,14 @@ function nf(r){
   if(a>=1e9||a<1e-6)return r.toExponential(6).replace(/\.?0+e/,'e');
   return String(+r.toPrecision(10));
 }
+let swapRot=0;
+function swapUnits(){
+  const a=$('#u1').value,b=$('#u2').value,v=$('#v2').value;
+  $('#u1').value=b;$('#u2').value=a;
+  if(v!=='')$('#v1').value=v;
+  swapRot^=1;$('#swap').style.transform='rotate('+(swapRot*180)+'deg)';
+  conv();
+}
 function conv(){
   const c=C[cur],a=+$('#u1').value,b=+$('#u2').value,x=parseFloat($('#v1').value);
   if(isNaN(x)){$('#v2').value='';return}
@@ -248,7 +261,7 @@ function conv(){
 
 /* ---- Bahasa / Language ---- */
 function applyLang(){
-  document.documentElement.lang=LANG;
+  document.documentElement.lang=LANG;$('#swap').setAttribute('aria-label',t('swap'));
   document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
   document.querySelectorAll('[data-l]').forEach(b=>b.classList.toggle('sel',b.dataset.l===LANG));
   renderCats();
