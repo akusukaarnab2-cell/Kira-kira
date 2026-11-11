@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Buka zip projek (kali pertama sahaja)
+      - name: Buka zip projek (jika ada)
         run: |
           if [ -f kirakira.zip ]; then
             unzip -o kirakira.zip
@@ -18,7 +18,7 @@ jobs:
             git config user.name "github-actions"
             git config user.email "actions@github.com"
             git add -A
-            git commit -m "Sediakan projek KiraKira dari zip"
+            git commit -m "Kemas kini projek dari zip"
             git push
           fi
       - uses: actions/setup-java@v4
@@ -31,12 +31,15 @@ jobs:
       - run: gradle assembleDebug
       - id: ver
         run: |
+          A=$(grep APP_NAME version.properties | cut -d= -f2)
           N=$(grep VERSION_NAME version.properties | cut -d= -f2)
           B=$(grep BUILD_NUMBER version.properties | cut -d= -f2)
           echo "tag=v$N-b$B" >> $GITHUB_OUTPUT
-          cp app/build/outputs/apk/debug/app-debug.apk KiraKira-v$N-b$B.apk
+          echo "app=$A" >> $GITHUB_OUTPUT
+          echo "apk=$A-v$N-b$B.apk" >> $GITHUB_OUTPUT
+          cp app/build/outputs/apk/debug/app-debug.apk "$A-v$N-b$B.apk"
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.tag }}
-          name: KiraKira ${{ steps.ver.outputs.tag }}
-          files: KiraKira-*.apk
+          name: ${{ steps.ver.outputs.app }} ${{ steps.ver.outputs.tag }}
+          files: ${{ steps.ver.outputs.apk }}
