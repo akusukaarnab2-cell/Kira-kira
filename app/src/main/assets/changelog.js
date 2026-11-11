@@ -1,4 +1,13 @@
 const CHANGELOG = [
+  { v: '1.5.0', b: 16, tarikh: '2026-11-11', nota: {
+    ms: ['Maskot kini melambai-lambai: lengan bergerak sendiri', 'Animasi maskot dipaparkan di skrin utama dan Tetapan'],
+    en: ['The mascot now waves: its arm moves on its own', 'Mascot animation shown on the main screen and in Settings'] }},
+  { v: '1.5.0', b: 15, tarikh: '2026-11-11', nota: {
+    ms: ['Baris pengiraan dirapatkan tanpa jarak, contohnya 3-1=2'],
+    en: ['Calculation line is now compact with no spaces, e.g. 3-1=2'] }},
+  { v: '1.5.0', b: 14, tarikh: '2026-11-11', nota: {
+    ms: ['Baris pengiraan lebih kemas dengan jarak yang tersusun, contohnya 3 − 1 = 2', 'Maskot tidak lagi menyentuh kotak paparan'],
+    en: ['Neater calculation line with tidy spacing, e.g. 3 − 1 = 2', 'Mascot no longer touches the display box'] }},
   { v: '1.5.0', b: 13, tarikh: '2026-11-11', nota: {
     ms: ['Nombor besar di bawah kekal sebagai nombor yang ditaip; jawapan dipaparkan di baris atas (1+3=4)'],
     en: ['The big number below stays as the number being typed; the answer shows on the top line (1+3=4)'] }},
