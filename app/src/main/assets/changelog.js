@@ -1,19 +1,19 @@
 const CHANGELOG = [
-  { v: '1.2.0', b: 4, tarikh: '2026-11-11', nota: [
-    'Betulkan ikon app supaya sama dengan gambar maskot'
+  { v: '1.3.0', b: 6, tarikh: '2026-11-11', nota: [
+    'Bar status dan bar navigasi kini mengikut warna tema app'
   ]},
-  { v: '1.2.0', b: 3, tarikh: '2026-11-11', nota: [
+  { v: '1.3.0', b: 5, tarikh: '2026-11-11', nota: [
+    'Nama app ditukar kepada Kalkulator',
+    'Senarai unit dikemaskan',
+    'Unit Metrik, Imperial, Maritim & Angkasa kekal'
+  ]},
+  { v: '1.2.0', b: 4, tarikh: '2026-11-11', nota: [
     'Jauh lebih banyak unit dalam setiap jenis pertukaran',
     'Jenis baharu: Kelajuan, Data, Tekanan, Tenaga, Kuasa dan Sudut',
-    'Kotak penukar dipindah ke atas supaya mudah dilihat'
-  ]},
-  { v: '1.1.0', b: 2, tarikh: '2026-11-11', nota: [
-    'Ikon app baharu: maskot kalkulator comel',
-    'Unit panjang lebih banyak: Metrik, Imperial, Tradisional Melayu, Maritim & Angkasa',
-    'Lebih banyak unit untuk Berat, Masa, Isipadu, Luas dan Suhu'
+    'Ikon app mengikut gambar maskot kalkulator'
   ]},
   { v: '1.0.0', b: 1, tarikh: '2026-11-11', nota: [
-    'Kalkulator KiraKira pertama',
+    'Kalkulator pertama',
     'Penukar unit 8 kategori',
     'Info perubahan terkini dalam app'
   ]}

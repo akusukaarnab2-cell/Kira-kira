@@ -32,7 +32,7 @@ nav button.on{background:#e6e3ff;color:#7c5cff;font-weight:700}
 #modal .box{max-height:80vh;overflow:auto;width:100%;margin:0}
 </style></head><body>
 <header>
-  <div><h1>KiraKira ⭐</h1><small>Kira apa sahaja, lebih mudah!</small><br><small id="ver"></small></div>
+  <div><h1>Kalkulator ⭐</h1><small>Kira apa sahaja, lebih mudah!</small><br><small id="ver"></small></div>
   <button id="star" onclick="openLog()">✨<i id="dot"></i></button>
 </header>
 <main>
@@ -109,15 +109,13 @@ function key(k){
 const LEN=[
 ['Mikrometer (µm)',1e-6,'Metrik'],['Milimeter (mm)',.001,'Metrik'],['Sentimeter (cm)',.01,'Metrik'],['Desimeter (dm)',.1,'Metrik'],['Meter (m)',1,'Metrik'],['Kilometer (km)',1000,'Metrik'],
 ['Thou / mil',2.54e-5,'Imperial'],['Inci',.0254,'Imperial'],['Kaki (feet)',.3048,'Imperial'],['Ela (yard)',.9144,'Imperial'],['Rantai (chain)',20.1168,'Imperial'],['Furlong',201.168,'Imperial'],['Batu (miles)',1609.344,'Imperial'],
-['Jari',.0191,'Tradisional Melayu'],['Kilan',.1778,'Tradisional Melayu'],['Jengkal',.2286,'Tradisional Melayu'],['Hasta',.4572,'Tradisional Melayu'],['Langkah',.762,'Tradisional Melayu'],['Depa',1.8288,'Tradisional Melayu'],
 ['Fathom (depa laut)',1.8288,'Maritim & Angkasa'],['Kabel (cable)',185.2,'Maritim & Angkasa'],['Batu Nautika (nautical mile)',1852,'Maritim & Angkasa'],['Unit Astronomi (AU)',1.495978707e11,'Maritim & Angkasa'],['Tahun Cahaya (light-year)',9.4607304725808e15,'Maritim & Angkasa'],['Parsec',3.0856775814913673e16,'Maritim & Angkasa']];
 const C=[
 {n:'Tinggi',e:'📏',bg:'#ffe3ea',s:'cm ↔ m',u:LEN,d:[2,4]},
 {n:'Jarak',e:'📍',bg:'#dcecff',s:'m ↔ km',u:LEN,d:[4,5]},
 {n:'Berat',e:'⚖️',bg:'#e6e3ff',s:'g ↔ kg',d:[2,3],u:[
  ['Mikrogram (µg)',1e-9,'Metrik'],['Miligram (mg)',1e-6,'Metrik'],['Gram (g)',.001,'Metrik'],['Kilogram (kg)',1,'Metrik'],['Tan metrik',1000,'Metrik'],['Karat',2e-4,'Metrik'],
- ['Gren (grain)',6.479891e-5,'Imperial'],['Auns (oz)',.028349523,'Imperial'],['Paun (lb)',.45359237,'Imperial'],['Stone',6.35029318,'Imperial'],['Tan AS (short ton)',907.18474,'Imperial'],['Tan UK (long ton)',1016.0469088,'Imperial'],
- ['Hun',.000378,'Tradisional Melayu'],['Chi',.00378,'Tradisional Melayu'],['Tahil',.0378,'Tradisional Melayu'],['Kati',.6048,'Tradisional Melayu'],['Pikul',60.48,'Tradisional Melayu'],['Koyan',2419.2,'Tradisional Melayu']]},
+ ['Gren (grain)',6.479891e-5,'Imperial'],['Auns (oz)',.028349523,'Imperial'],['Paun (lb)',.45359237,'Imperial'],['Stone',6.35029318,'Imperial'],['Tan AS (short ton)',907.18474,'Imperial'],['Tan UK (long ton)',1016.0469088,'Imperial']]},
 {n:'Lebar',e:'↔️',bg:'#fff0d4',s:'cm ↔ m',u:LEN,d:[2,4]},
 {n:'Suhu',e:'🌡️',bg:'#ffe5d0',s:'°C ↔ °F',d:[0,1],u:[['Celsius (°C)',1,'Suhu'],['Fahrenheit (°F)',1,'Suhu'],['Kelvin (K)',1,'Suhu'],['Rankine (°R)',1,'Suhu'],['Réaumur (°Ré)',1,'Suhu']]},
 {n:'Masa',e:'⏰',bg:'#d8f5e6',s:'s ↔ min',d:[1,2],u:[
@@ -126,12 +124,10 @@ const C=[
  ['Bulan (purata)',2629800,'Panjang'],['Tahun',31557600,'Panjang'],['Dekad',315576000,'Panjang'],['Abad',3155760000,'Panjang']]},
 {n:'Isipadu',e:'🧊',bg:'#ffe3ea',s:'ml ↔ L',d:[1,3],u:[
  ['Mikroliter (µl)',1e-6,'Metrik'],['Sentimeter padu (cm³)',.001,'Metrik'],['Mililiter (ml)',.001,'Metrik'],['Sentiliter (cl)',.01,'Metrik'],['Liter (L)',1,'Metrik'],['Hektoliter (hl)',100,'Metrik'],['Meter padu (m³)',1000,'Metrik'],
- ['Sudu teh AS (tsp)',.00492892,'Imperial'],['Sudu besar AS (tbsp)',.0147868,'Imperial'],['Auns cecair AS',.0295735,'Imperial'],['Cawan AS',.236588,'Imperial'],['Pint AS',.473176,'Imperial'],['Kuart AS',.946353,'Imperial'],['Gelen AS',3.785412,'Imperial'],['Pint UK',.568261,'Imperial'],['Gelen UK',4.54609,'Imperial'],['Inci padu',.016387064,'Imperial'],['Kaki padu',28.316847,'Imperial'],
- ['Cupak',1.1365,'Tradisional Melayu'],['Gantang',4.54609,'Tradisional Melayu']]},
+ ['Sudu teh AS (tsp)',.00492892,'Imperial'],['Sudu besar AS (tbsp)',.0147868,'Imperial'],['Auns cecair AS',.0295735,'Imperial'],['Cawan AS',.236588,'Imperial'],['Pint AS',.473176,'Imperial'],['Kuart AS',.946353,'Imperial'],['Gelen AS',3.785412,'Imperial'],['Pint UK',.568261,'Imperial'],['Gelen UK',4.54609,'Imperial'],['Inci padu',.016387064,'Imperial'],['Kaki padu',28.316847,'Imperial']]},
 {n:'Luas',e:'🔲',bg:'#e6e3ff',s:'m² ↔ km²',d:[2,4],u:[
  ['Sentimeter persegi (cm²)',1e-4,'Metrik'],['Meter persegi (m²)',1,'Metrik'],['Are (a)',100,'Metrik'],['Hektar (ha)',1e4,'Metrik'],['Kilometer persegi (km²)',1e6,'Metrik'],
- ['Inci persegi',6.4516e-4,'Imperial'],['Kaki persegi',.09290304,'Imperial'],['Ela persegi',.83612736,'Imperial'],['Ekar (acre)',4046.8564224,'Imperial'],['Batu persegi',2589988.110336,'Imperial'],
- ['Relong',2871,'Tradisional Melayu']]},
+ ['Inci persegi',6.4516e-4,'Imperial'],['Kaki persegi',.09290304,'Imperial'],['Ela persegi',.83612736,'Imperial'],['Ekar (acre)',4046.8564224,'Imperial'],['Batu persegi',2589988.110336,'Imperial']]},
 {n:'Kelajuan',e:'💨',bg:'#d8f5e6',s:'m/s ↔ km/j',d:[0,1],u:[
  ['Meter/saat (m/s)',1,'Metrik'],['Kilometer/jam (km/j)',1/3.6,'Metrik'],['Kaki/saat (ft/s)',.3048,'Imperial'],['Batu/jam (mph)',.44704,'Imperial'],
  ['Knot',.514444444,'Maritim & Angkasa'],['Mach',340.29,'Maritim & Angkasa'],['Kelajuan cahaya (c)',299792458,'Maritim & Angkasa']]},
