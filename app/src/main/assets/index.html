@@ -12,7 +12,7 @@ small{color:#6b6b8a}
 main{flex:1;overflow:auto;padding:8px 14px}
 .page{display:none}.page.on{display:block}
 #disp{background:#e9e8ff;border-radius:22px;padding:14px 18px;text-align:right;min-height:104px}
-#ex{color:#777;font-size:16px;min-height:20px}
+#ex{color:#777;font-size:18px;min-height:24px;word-break:break-all}
 #res{font-size:44px;font-weight:700;word-break:break-all}
 .pad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
 .pad button{height:62px;border:0;border-radius:18px;font-size:24px;font-weight:700;background:#fffbea;color:#1e1b4b;box-shadow:0 2px 4px #0001}
@@ -97,7 +97,18 @@ $('#pad').onclick=e=>{const b=e.target.closest('button');if(b)key(b.dataset.k)};
 const pretty=s=>s.replace(/\*/g,'×').replace(/\//g,'÷');
 const fmt=n=>Number(n.toFixed(8)).toLocaleString('en-US',{maximumFractionDigits:8});
 function err(){ex='';show(t('err'));$('#res').dataset.err='1'}
-function show(r){delete $('#res').dataset.err;$('#ex').textContent=pretty(ex);$('#res').textContent=r!==undefined?r:((ex.match(/[0-9.]+$/)||['0'])[0])}
+function live(){
+  const e=ex.replace(/[+\-*\/.]+$/,'');
+  if(!/[0-9.][+\-*\/]-?[0-9.]/.test(e))return null;
+  try{const r=Function('return '+e)();return isFinite(r)?fmt(r):null}catch(_){return null}
+}
+function show(r){
+  delete $('#res').dataset.err;
+  if(r!==undefined){$('#ex').textContent=pretty(ex);$('#res').textContent=r;return}
+  const L=live(),endOp=/[+\-*\/.]$/.test(ex);
+  $('#ex').textContent=pretty(ex)+(L!==null&&!endOp?'='+L:'');
+  $('#res').textContent=(ex.match(/([0-9.]+)[+\-*\/]*$/)||[0,'0'])[1];
+}
 function key(k){
   const op=/[+\-*\/]$/;
   if(k==='C'){ex='';done=false;return show('0')}
@@ -107,7 +118,7 @@ function key(k){
       const e=ex.replace(/[+\-*\/.]+$/,'');
       const r=Function('return '+e)();
       if(!isFinite(r)){return err()}
-      show(fmt(r));$('#ex').textContent=pretty(e)+' =';ex=String(r);done=true;
+      show(fmt(r));$('#ex').textContent=pretty(e)+'='+fmt(r);ex=String(r);done=true;
     }catch(_){err()}
     return;
   }
