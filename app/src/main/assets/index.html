@@ -8,11 +8,11 @@ h1{margin:0;font-size:30px;color:#7c5cff}
 small{color:#6b6b8a}
 .mw{position:relative;height:84px;width:91px;pointer-events:none;-webkit-user-select:none;user-select:none;filter:drop-shadow(0 5px 6px rgba(92,60,200,.22));animation:bob 3.4s ease-in-out infinite}
 .mw img{position:absolute;left:0;top:0;width:100%;height:100%}
-.mw .arm{transform-origin:78% 47.6%;animation:wave 3s ease-in-out infinite}
+.mw .arm{transform-origin:77.5% 47.1%;animation:wave 3s ease-in-out infinite}
 .mw.big{height:110px;width:119px;margin:0 auto}
 #mascot{margin:-4px 2px 6px 0}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-4px) rotate(1.5deg)}}
-@keyframes wave{0%,67%,100%{transform:rotate(0)}7%{transform:rotate(-12deg)}17%{transform:rotate(12deg)}27%{transform:rotate(-12deg)}37%{transform:rotate(12deg)}47%{transform:rotate(-12deg)}57%{transform:rotate(12deg)}}
+@keyframes wave{0%,67%,100%{transform:rotate(0)}7%{transform:rotate(-14deg)}17%{transform:rotate(14deg)}27%{transform:rotate(-14deg)}37%{transform:rotate(14deg)}47%{transform:rotate(-14deg)}57%{transform:rotate(14deg)}}
 @media(prefers-reduced-motion:reduce){.mw,.mw .arm{animation:none}}
 main{flex:1;overflow:auto;padding:8px 14px}
 .page{display:none}.page.on{display:block}
@@ -42,7 +42,7 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
 </style></head><body>
 <header>
   <div><h1><span data-i="title"></span> ⭐</h1><small data-i="tagline"></small></div>
-  <div class="mw" id="mascot"><img src="mascot_body.png" alt=""><img class="arm" src="mascot_arm.png" alt=""></div>
+  <div class="mw" id="mascot"><img class="arm" src="mascot_arm.png" alt=""><img src="mascot_body.png" alt=""></div>
 </header>
 <main>
   <section class="page on">
@@ -59,7 +59,7 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
   </section>
   <section class="page">
     <div class="box" style="margin-top:0;text-align:center">
-      <div class="mw big"><img src="mascot_body.png" alt=""><img class="arm" src="mascot_arm.png" alt=""></div>
+      <div class="mw big"><img class="arm" src="mascot_arm.png" alt=""><img src="mascot_body.png" alt=""></div>
       <h2 style="margin:4px 0;color:#7c5cff" data-i="title"></h2>
       <small data-i="tagline"></small>
     </div>

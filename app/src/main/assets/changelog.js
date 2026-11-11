@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.5.0', b: 17, tarikh: '2026-11-11', nota: {
+    ms: ['Betulkan lambaian maskot: lengan kini kekal bersambung dengan badan'],
+    en: ['Fixed the mascot wave: the arm now stays connected to the body'] }},
   { v: '1.5.0', b: 16, tarikh: '2026-11-11', nota: {
     ms: ['Maskot kini melambai-lambai: lengan bergerak sendiri', 'Animasi maskot dipaparkan di skrin utama dan Tetapan'],
     en: ['The mascot now waves: its arm moves on its own', 'Mascot animation shown on the main screen and in Settings'] }},
