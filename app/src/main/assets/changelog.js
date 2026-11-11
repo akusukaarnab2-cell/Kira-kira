@@ -1,4 +1,10 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 22, tarikh: '2026-11-11', nota: {
+    ms: ['Tulisan baharu yang comel (Fredoka) termasuk nombor', 'Warna lebih ceria: latar berkecerunan, butang timbul bergaya gula-gula', 'Nombor paparan berwarna kecerunan ungu ke merah jambu'],
+    en: ['New cute font (Fredoka), including the numbers', 'Brighter colours: gradient background and candy-style raised buttons', 'Display number in a purple-to-pink gradient'] }},
+  { v: '1.5.0', b: 21, tarikh: '2026-11-11', nota: {
+    ms: ['Nota perubahan kini dipaparkan di GitHub (Releases dan mesej commit)'],
+    en: ['Change notes are now shown on GitHub (Releases and commit messages)'] }},
   { v: '1.5.0', b: 20, tarikh: '2026-11-11', nota: {
     ms: ['Butang tukar unit dikecilkan', 'Nombor unit bawah kini boleh ditaip dengan papan kekunci dan unit atas dikira semula'],
     en: ['Swap button made smaller', 'The bottom value can now be typed with the keyboard and the top value is recalculated'] }},
