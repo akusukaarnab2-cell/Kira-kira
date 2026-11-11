@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.5.0', b: 20, tarikh: '2026-11-11', nota: {
+    ms: ['Butang tukar unit dikecilkan', 'Nombor unit bawah kini boleh ditaip dengan papan kekunci dan unit atas dikira semula'],
+    en: ['Swap button made smaller', 'The bottom value can now be typed with the keyboard and the top value is recalculated'] }},
   { v: '1.5.0', b: 19, tarikh: '2026-11-11', nota: {
     ms: ['Butang tukar unit baharu: unit atas dan bawah bertukar tempat dengan sekali tekan'],
     en: ['New swap button: the top and bottom units trade places with one tap'] }},
