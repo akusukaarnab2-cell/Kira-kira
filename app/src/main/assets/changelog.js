@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.2.0', b: 4, tarikh: '2026-11-11', nota: [
+    'Betulkan ikon app supaya sama dengan gambar maskot'
+  ]},
   { v: '1.2.0', b: 3, tarikh: '2026-11-11', nota: [
     'Jauh lebih banyak unit dalam setiap jenis pertukaran',
     'Jenis baharu: Kelajuan, Data, Tekanan, Tenaga, Kuasa dan Sudut',
