@@ -70,9 +70,12 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
 #modal .box{max-height:80vh;overflow:auto;width:100%;margin:0}
 #modal h2{color:#000;font-weight:700}
 #modal h3{color:#000;font-weight:600}
+h1,.ttl{background:linear-gradient(90deg,#7c5cff,#c24dff 55%,#ff6fb0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 2px 0 rgba(255,255,255,.95)) drop-shadow(0 4px 5px rgba(92,60,200,.35))}
+.ttl{width:fit-content;margin:4px auto;font-size:26px;font-weight:700}
+.tg{color:#5c3fc4;font-weight:500}
 </style></head><body>
 <header>
-  <div><h1><span data-i="title"></span> <span class="tstar"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 4l4.6 9.6 10.4 1.4-7.6 7.3 1.9 10.4L20 27.8 10.7 32.7l1.9-10.4L5 15l10.4-1.4Z" fill="#ffd54a" stroke="#f0a500" stroke-width="2.2" stroke-linejoin="round"/><circle cx="17.2" cy="19" r="1.1199999999999999" fill="#3b1f7a"/><circle cx="22.8" cy="19" r="1.1199999999999999" fill="#3b1f7a"/><path d="M18.6 21.1q1.4 1.4 2.8 0" fill="none" stroke="#3b1f7a" stroke-width="1" stroke-linecap="round"/><circle cx="15.45" cy="21.1" r="1.19" fill="#ff9db8" opacity=".75"/><circle cx="24.55" cy="21.1" r="1.19" fill="#ff9db8" opacity=".75"/></svg></span></h1><small data-i="tagline"></small></div>
+  <div><h1><span data-i="title"></span> <span class="tstar"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 4l4.6 9.6 10.4 1.4-7.6 7.3 1.9 10.4L20 27.8 10.7 32.7l1.9-10.4L5 15l10.4-1.4Z" fill="#ffd54a" stroke="#f0a500" stroke-width="2.2" stroke-linejoin="round"/><circle cx="17.2" cy="19" r="1.1199999999999999" fill="#3b1f7a"/><circle cx="22.8" cy="19" r="1.1199999999999999" fill="#3b1f7a"/><path d="M18.6 21.1q1.4 1.4 2.8 0" fill="none" stroke="#3b1f7a" stroke-width="1" stroke-linecap="round"/><circle cx="15.45" cy="21.1" r="1.19" fill="#ff9db8" opacity=".75"/><circle cx="24.55" cy="21.1" r="1.19" fill="#ff9db8" opacity=".75"/></svg></span></h1><small class="tg" data-i="tagline"></small></div>
   <div class="mw" id="mascot"><img class="arm" src="mascot_arm.png" alt=""><img src="mascot_body.png" alt=""></div>
 </header>
 <main>
@@ -92,8 +95,8 @@ nav button:not(.on) svg{filter:grayscale(.75) opacity(.75)}
   <section class="page">
     <div class="box" style="margin-top:0;text-align:center">
       <div class="mw big"><img class="arm" src="mascot_arm.png" alt=""><img src="mascot_body.png" alt=""></div>
-      <h2 style="margin:4px 0;color:#000" data-i="title"></h2>
-      <small data-i="tagline"></small>
+      <h2 class="ttl" data-i="title"></h2>
+      <small class="tg" data-i="tagline"></small>
     </div>
     <div class="box"><b data-i="lang"></b>
       <div class="row">

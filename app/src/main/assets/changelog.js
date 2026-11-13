@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 27, tarikh: '2026-11-13', nota: {
+    ms: ['Tajuk Kalkulator dan slogan kembali berwarna (ungu ke merah jambu); tulisan lain kekal hitam'],
+    en: ['The Calculator title and tagline are colourful again (purple to pink); all other text stays black'] }},
   { v: '1.6.0', b: 26, tarikh: '2026-11-13', nota: {
     ms: ['Semua tulisan dan nombor kini berwarna hitam; bentuk tulisan dikekalkan', 'Bayang dan warna kecerunan pada tulisan dibuang'],
     en: ['All text and numbers are now black; the letter shapes are kept', 'Shadows and gradient colours on text removed'] }},
