@@ -20,6 +20,14 @@ android {
         versionName = "$vName (Build $vBuild)"
         buildConfigField("String", "APP_VERSION", "\"$vName\"")
     }
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("kalkulator.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
     buildFeatures { buildConfig = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
