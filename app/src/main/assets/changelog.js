@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 30, tarikh: '2026-11-13', nota: {
+    ms: ['Bayang dikurangkan di seluruh app (butang, kotak, kad, tajuk dan maskot) supaya lebih selesa dipandang'],
+    en: ['Shadows reduced across the app (buttons, boxes, cards, titles and mascot) so it is easier on the eyes'] }},
   { v: '1.6.0', b: 29, tarikh: '2026-11-13', nota: {
     ms: ['Tandatangan app kini tetap: kemas kini seterusnya boleh dipasang terus tanpa nyahpasang (selepas pemasangan kali ini)'],
     en: ['The app signature is now fixed: future updates install directly without uninstalling (after this one install)'] }},
