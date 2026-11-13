@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 26, tarikh: '2026-11-13', nota: {
+    ms: ['Semua tulisan dan nombor kini berwarna hitam; bentuk tulisan dikekalkan', 'Bayang dan warna kecerunan pada tulisan dibuang'],
+    en: ['All text and numbers are now black; the letter shapes are kept', 'Shadows and gradient colours on text removed'] }},
   { v: '1.6.0', b: 25, tarikh: '2026-11-11', nota: {
     ms: ['Bayang tulisan dan nombor ditukar kepada hitam supaya lebih mudah dibaca', 'Warna tulisan dipekatkan'],
     en: ['Text and number shadows changed to black for easier reading', 'Text colours made deeper'] }},
