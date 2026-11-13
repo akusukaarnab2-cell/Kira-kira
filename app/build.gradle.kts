@@ -6,6 +6,8 @@ plugins {
 }
 
 val v = Properties().apply { file("../version.properties").inputStream().use { load(it) } }
+val vName: String = v.getProperty("VERSION_NAME")
+val vBuild: String = v.getProperty("BUILD_NUMBER")
 
 android {
     namespace = "com.kirakira.app"
@@ -14,8 +16,9 @@ android {
         applicationId = "com.kirakira.app"
         minSdk = 24
         targetSdk = 34
-        versionCode = v.getProperty("BUILD_NUMBER").toInt()
-        versionName = v.getProperty("VERSION_NAME")
+        versionCode = vBuild.toInt()
+        versionName = "$vName (Build $vBuild)"
+        buildConfigField("String", "APP_VERSION", "\"$vName\"")
     }
     buildFeatures { buildConfig = true }
     compileOptions {

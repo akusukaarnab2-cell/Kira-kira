@@ -8,7 +8,7 @@ import android.webkit.WebView
 class MainActivity : Activity() {
     class Bridge {
         @JavascriptInterface
-        fun version(): String = "${BuildConfig.VERSION_NAME}|${BuildConfig.VERSION_CODE}"
+        fun version(): String = "${BuildConfig.APP_VERSION}|${BuildConfig.VERSION_CODE}"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

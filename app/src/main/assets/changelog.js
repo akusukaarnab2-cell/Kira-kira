@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 28, tarikh: '2026-11-13', nota: {
+    ms: ['Nombor build kini turut dipaparkan pada maklumat app Android (Tetapan telefon > Apl)'],
+    en: ['The build number is now also shown in the Android app info (phone Settings > Apps)'] }},
   { v: '1.6.0', b: 27, tarikh: '2026-11-13', nota: {
     ms: ['Tajuk Kalkulator dan slogan kembali berwarna (ungu ke merah jambu); tulisan lain kekal hitam'],
     en: ['The Calculator title and tagline are colourful again (purple to pink); all other text stays black'] }},
