@@ -1,4 +1,10 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 25, tarikh: '2026-11-11', nota: {
+    ms: ['Bayang tulisan dan nombor ditukar kepada hitam supaya lebih mudah dibaca', 'Warna tulisan dipekatkan'],
+    en: ['Text and number shadows changed to black for easier reading', 'Text colours made deeper'] }},
+  { v: '1.6.0', b: 24, tarikh: '2026-11-11', nota: {
+    ms: ['Nama unit dalam penukar tidak lagi terpotong', 'Anak panah kecil pada kotak nombor dibuang'],
+    en: ['Unit names in the converter are no longer cut off', 'Small spinner arrows on the number boxes removed'] }},
   { v: '1.6.0', b: 23, tarikh: '2026-11-11', nota: {
     ms: ['Bayang pada semua tulisan dan nombor supaya lebih jelas', 'Warna tulisan kecil dipekatkan sedikit'],
     en: ['Shadows added to all text and numbers for better clarity', 'Small text colours made slightly deeper'] }},
