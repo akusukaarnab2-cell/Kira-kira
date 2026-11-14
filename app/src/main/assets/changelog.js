@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 32, tarikh: '2026-11-14', nota: {
+    ms: ['Warna tema baharu yang lebih comel: merah jambu lembut, lavender, krim dan mint', 'Nada hangat dan pudar supaya sedap dipandang dan tidak menyilau'],
+    en: ['New cuter theme colours: soft pink, lavender, cream and mint', 'Warm, muted tones that are easy on the eyes and not glaring'] }},
   { v: '1.6.0', b: 31, tarikh: '2026-11-13', nota: {
     ms: ['Silau dikurangkan: putih terang diganti warna lebih lembut dan malap', 'Latar, kotak, butang, kad dan bar tab lebih selesa untuk mata'],
     en: ['Less glare: bright white replaced with softer, dimmer tones', 'Background, boxes, buttons, cards and tab bar are easier on the eyes'] }},
