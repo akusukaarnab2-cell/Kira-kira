@@ -1,4 +1,7 @@
 const CHANGELOG = [
+  { v: '1.6.0', b: 31, tarikh: '2026-11-13', nota: {
+    ms: ['Silau dikurangkan: putih terang diganti warna lebih lembut dan malap', 'Latar, kotak, butang, kad dan bar tab lebih selesa untuk mata'],
+    en: ['Less glare: bright white replaced with softer, dimmer tones', 'Background, boxes, buttons, cards and tab bar are easier on the eyes'] }},
   { v: '1.6.0', b: 30, tarikh: '2026-11-13', nota: {
     ms: ['Bayang dikurangkan di seluruh app (butang, kotak, kad, tajuk dan maskot) supaya lebih selesa dipandang'],
     en: ['Shadows reduced across the app (buttons, boxes, cards, titles and mascot) so it is easier on the eyes'] }},
